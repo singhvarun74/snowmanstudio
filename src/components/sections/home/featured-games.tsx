@@ -1,7 +1,8 @@
+
 "use client";
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,64 +13,99 @@ import {
 } from '@/components/ui/dialog';
 import AnimateOnScroll from '@/components/motion/animate-on-scroll';
 import { ExternalLink } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Game {
   id: string;
   title: string;
   imageUrl: string;
   imageHint: string;
-  itchioEmbedUrl?: string; 
-  itchioPageUrl: string; 
+  itchioEmbedUrl?: string;
+  itchioPageUrl: string;
   description: string;
+  isFeatured: boolean;
 }
 
-const games: Game[] = [
-  {
-    id: '1',
-    title: 'Glacial Guardians',
-    imageUrl: 'https://placehold.co/600x400.png',
-    imageHint: 'fantasy strategy game',
-    itchioPageUrl: 'https://itch.io', 
-    description: "Command powerful guardians in this epic strategy game set in a frozen realm. Master tactical combat and defend your kingdom from ancient evils.",
-  },
-  {
-    id: '2',
-    title: 'Frostbite Frontier',
-    imageUrl: 'https://placehold.co/600x400.png',
-    imageHint: 'survival adventure game',
-    itchioPageUrl: 'https://itch.io',
-    description: "Brave the harsh wilderness in this thrilling survival adventure. Gather resources, build shelter, and uncover the secrets of a land trapped in eternal winter.",
-  },
-  {
-    id: '3',
-    title: 'Arctic Ascent',
-    imageUrl: 'https://placehold.co/600x400.png',
-    imageHint: 'platformer game winter',
-    itchioPageUrl: 'https://itch.io',
-    description: "Embark on a perilous journey up a colossal ice mountain in this challenging platformer. Precision and quick reflexes are key to reaching the summit.",
-  },
-];
+interface FeaturedGamesProps {
+  showAllGames?: boolean;
+}
 
-export default function FeaturedGames() {
+export default function FeaturedGames({ showAllGames = false }: FeaturedGamesProps) {
+  const [gamesToDisplay, setGamesToDisplay] = useState<Game[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    async function loadGames() {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetch('/data/games.json');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch games: ${response.status}`);
+        }
+        const allGamesData: Game[] = await response.json();
+        if (showAllGames) {
+          setGamesToDisplay(allGamesData);
+        } else {
+          setGamesToDisplay(allGamesData.filter(game => game.isFeatured));
+        }
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred while fetching games.");
+        }
+        console.error("Error loading games:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadGames();
+  }, [showAllGames]);
 
   const handleCardClick = (game: Game) => {
     setSelectedGame(game);
     setIsModalOpen(true);
   };
 
+  if (isLoading) {
+    // Determine number of skeletons based on context.
+    // For featured, it's usually a fixed small number (e.g., 3).
+    // For "all games", it might be more, or a different loading indicator could be used.
+    // Let's keep it simple with 3 for now, can be adjusted.
+    const skeletonCount = showAllGames ? 6 : 3; // Show more skeletons if displaying all games
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Array.from({ length: skeletonCount }).map((_, index) => (
+          <Skeleton key={index} className="aspect-[4/3] h-full rounded-lg" />
+        ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-center text-destructive bg-destructive/10 p-4 rounded-md">Error loading games: {error}</div>;
+  }
+
+  if (gamesToDisplay.length === 0 && !isLoading) {
+    return <div className="text-center text-lg text-muted-foreground py-8">No games to display at the moment.</div>;
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {games.map((game, index) => (
+        {gamesToDisplay.map((game, index) => (
           <AnimateOnScroll
             key={game.id}
             animationClass="animate-slide-up-fade-in"
             delay={`delay-${index * 100}ms`}
             className="h-full"
           >
-            <div 
+            <div
               onClick={() => handleCardClick(game)}
               className="group relative rounded-lg overflow-hidden shadow-xl cursor-pointer aspect-[4/3] h-full flex flex-col"
               role="button"
@@ -88,9 +124,9 @@ export default function FeaturedGames() {
                 />
               </div>
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-300 ease-in-out" />
-              <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-snow-white 
-                              opacity-0 group-hover:opacity-100 
-                              transform translate-y-5 group-hover:translate-y-0 
+              <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-snow-white
+                              opacity-0 group-hover:opacity-100
+                              transform translate-y-5 group-hover:translate-y-0
                               transition-all duration-300 ease-in-out">
                 <h3 className="font-headline text-2xl font-bold mb-2 text-shadow">{game.title}</h3>
                 <Button variant="outline" size="sm" className="bg-transparent border-snow-white text-snow-white hover:bg-snow-white hover:text-charcoal">
