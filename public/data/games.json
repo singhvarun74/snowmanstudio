@@ -1,13 +1,81 @@
 
 [
   {
-    "id": "game0",
-    "title": "Pixel Pioneers",
-    "imageUrl": "https://placehold.co/800x600.png",
-    "imageHint": "pixel art adventure",
+    "id": "frostfall-saga",
+    "title": "Frostfall Saga",
+    "shortDescription": "Epic RPG adventure.",
+    "heroTagline": "A World Frozen in Time Awaits!",
+    "description": "Embark on an epic journey through the frozen land of Nosterria. Battle mythical creatures, uncover ancient secrets, and forge your destiny in this sprawling open-world RPG. Features a dynamic weather system and a rich, branching narrative.",
+    "imageUrl": "/images/games/frostfall-saga.png",
+    "imageHint": "fantasy RPG snow landscape",
+    "itchioPageUrl": "https://snowmandev.itch.io/frostfall-saga",
     "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://yourusername.itch.io/pixel-pioneers",
-    "description": "Embark on a charming 8-bit adventure to save the kingdom. Explore vast lands, defeat quirky monsters, and discover hidden treasures. A retro RPG experience for modern heroes.",
-    "isFeatured": true
+    "isFeatured": true,
+    "showInFeaturedGrid": true
+  },
+  {
+    "id": "glacier-run",
+    "title": "Glacier Run",
+    "shortDescription": "Fast-paced arctic racer.",
+    "heroTagline": "Race Across the Icy Wastes!",
+    "description": "Test your reflexes in this high-speed arctic racing game. Navigate treacherous ice floes, outmaneuver opponents, and slide your way to victory. Unlock new vehicles and customize them for ultimate performance.",
+    "imageUrl": "/images/games/glacier-run.png",
+    "imageHint": "arctic racing game vehicle",
+    "itchioPageUrl": "https://snowmandev.itch.io/glacier-run",
+    "itchioEmbedUrl": "https://itch.io/embed-upload/10005840?color=212121",
+    "isFeatured": true,
+    "showInFeaturedGrid": true
+  },
+  {
+    "id": "avalanche-arena",
+    "title": "Avalanche Arena",
+    "shortDescription": "Multiplayer snowball mayhem.",
+    "heroTagline": "The Ultimate Snowball Fight!",
+    "description": "Enter the Avalanche Arena and engage in chaotic snowball battles with players from around the world. Master power-ups, build defenses, and be the last snowman standing in this thrilling multiplayer free-for-all.",
+    "imageUrl": "/images/games/avalanche-arena.png",
+    "imageHint": "multiplayer snowball fight characters",
+    "itchioPageUrl": "https://snowmandev.itch.io/avalanche-arena",
+    "itchioEmbedUrl": null,
+    "isFeatured": true,
+    "showInFeaturedGrid": true
+  },
+  {
+    "id": "snowball-tactics",
+    "title": "Snowball Tactics",
+    "shortDescription": "Turn-based strategy.",
+    "heroTagline": "Outwit Your Foes in the Snow!",
+    "description": "A charming turn-based strategy game where you command a team of brave snowmen against mischievous ice sprites. Plan your moves, utilize special abilities, and protect your winter wonderland.",
+    "imageUrl": "/images/games/snowball-tactics.png",
+    "imageHint": "strategy game board winter",
+    "itchioPageUrl": "https://snowmandev.itch.io/snowball-tactics",
+    "itchioEmbedUrl": "https://itch.io/embed-upload/10005842?color=212121",
+    "isFeatured": true,
+    "showInFeaturedGrid": true
+  },
+  {
+    "id": "icebound-mysteries",
+    "title": "Icebound Mysteries",
+    "shortDescription": "Chilling point-and-click adventure.",
+    "heroTagline": "Uncover Secrets Buried in Ice.",
+    "description": "A captivating point-and-click adventure set in a remote arctic research station. Solve intricate puzzles, interact with a memorable cast of characters, and uncover the chilling secrets hidden beneath the ice.",
+    "imageUrl": "/images/games/icebound-mysteries.png",
+    "imageHint": "mystery game arctic station",
+    "itchioPageUrl": "https://snowmandev.itch.io/icebound-mysteries",
+    "itchioEmbedUrl": null,
+    "isFeatured": false,
+    "showInFeaturedGrid": true
+  },
+  {
+    "id": "yetis-quest",
+    "title": "Yeti's Quest",
+    "shortDescription": "Platformer adventure.",
+    "heroTagline": "Help a Friendly Yeti Find Home!",
+    "description": "Join a lovable yeti on an exciting platforming adventure through stunning, snow-covered landscapes. Collect hidden treasures, overcome challenging obstacles, and help the yeti find his way back home.",
+    "imageUrl": "/images/games/yetis-quest.png",
+    "imageHint": "platformer game yeti character",
+    "itchioPageUrl": "https://snowmandev.itch.io/yetis-quest",
+    "itchioEmbedUrl": null,
+    "isFeatured": false,
+    "showInFeaturedGrid": false
   }
 ]

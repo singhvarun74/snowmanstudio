@@ -24,7 +24,8 @@ interface Game {
   itchioEmbedUrl?: string | null;
   itchioPageUrl: string;
   description: string;
-  isFeatured: boolean;
+  isFeatured: boolean; // Still present in data, used by HeroGamesCarousel
+  showInFeaturedGrid: boolean; // New property to control inclusion here
 }
 
 interface FeaturedGamesProps {
@@ -42,7 +43,7 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [featuredGamesList, setFeaturedGamesList] = useState<Game[]>([]);
+  const [gamesForDisplay, setGamesForDisplay] = useState<Game[]>([]); // Renamed from featuredGamesList
   const [carouselCurrentIndex, setCarouselCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -57,9 +58,11 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
         const jsonData: Game[] = await response.json();
         setAllGamesData(jsonData);
 
-        if (!showAllGames) {
-          const featured = jsonData.filter(game => game.isFeatured);
-          setFeaturedGamesList(featured);
+        if (!showAllGames) { // On homepage: filter by showInFeaturedGrid for the carousel/grid
+          const gridGames = jsonData.filter(game => game.showInFeaturedGrid);
+          setGamesForDisplay(gridGames);
+        } else { // On /games page: set all games for display in a simple grid
+          setGamesForDisplay(jsonData);
         }
       } catch (err) {
         if (err instanceof Error) {
@@ -76,11 +79,11 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
   }, [showAllGames]);
 
   const handleCarouselNav = (direction: 'next' | 'prev') => {
-    if (!featuredGamesList || featuredGamesList.length <= GAMES_PER_CAROUSEL_VIEW) return;
+    if (!gamesForDisplay || gamesForDisplay.length <= GAMES_PER_CAROUSEL_VIEW) return;
 
     setCarouselCurrentIndex(prev => {
       let newIndex;
-      const maxIndex = featuredGamesList.length - GAMES_PER_CAROUSEL_VIEW;
+      const maxIndex = gamesForDisplay.length - GAMES_PER_CAROUSEL_VIEW;
       if (direction === 'next') {
         newIndex = Math.min(prev + 1, maxIndex);
       } else { // prev
@@ -110,14 +113,15 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
     return <div className="text-center text-destructive bg-destructive/10 p-4 rounded-md">Error loading games: {error}</div>;
   }
 
-  if (showAllGames) {
-    if (allGamesData.length === 0) {
+  // For /games page (shows all games in a grid) or if !showAllGames and gamesForDisplay is empty
+  if (showAllGames || (gamesForDisplay.length === 0 && !isLoading)) {
+     if (gamesForDisplay.length === 0) {
       return <div className="text-center text-lg text-muted-foreground py-8">No games to display at the moment.</div>;
     }
     return (
       <>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allGamesData.map((game, index) => (
+          {gamesForDisplay.map((game, index) => ( // Use gamesForDisplay here
             <AnimateOnScroll
               key={game.id}
               animationClass="animate-slide-up-fade-in"
@@ -132,14 +136,11 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
       </>
     );
   }
-
-  if (featuredGamesList.length === 0 && !isLoading) {
-    return <div className="text-center text-lg text-muted-foreground py-8">No featured games to display at the moment.</div>;
-  }
-
+  
+  // This section is for the homepage "Featured Games" carousel/grid (when !showAllGames and gamesForDisplay has items)
   const canNavigatePrev = carouselCurrentIndex > 0;
-  const canNavigateNext = carouselCurrentIndex < featuredGamesList.length - GAMES_PER_CAROUSEL_VIEW;
-  const showNavigationArrows = featuredGamesList.length > GAMES_PER_CAROUSEL_VIEW;
+  const canNavigateNext = carouselCurrentIndex < gamesForDisplay.length - GAMES_PER_CAROUSEL_VIEW;
+  const showNavigationArrows = gamesForDisplay.length > GAMES_PER_CAROUSEL_VIEW;
 
   return (
     <AnimateOnScroll animationClass="animate-fade-in-from-bottom">
@@ -176,10 +177,10 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
               transition: `transform ${TRANSITION_DURATION_MS}ms ease-in-out`,
             }}
           >
-            {featuredGamesList.map((game) => (
+            {gamesForDisplay.map((game) => ( // Use gamesForDisplay here
               <div
                 key={game.id}
-                className="flex-shrink-0 px-4" // px-4 creates 1rem padding on each side, effective 2rem (gap-8) between cards
+                className="flex-shrink-0 px-4" 
                 style={{
                   flexBasis: `calc(100% / ${GAMES_PER_CAROUSEL_VIEW})`,
                 }}
