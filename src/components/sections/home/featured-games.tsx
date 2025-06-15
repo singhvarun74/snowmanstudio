@@ -84,7 +84,7 @@ export interface Game {
     title: string;
     contentKey: keyof Game | 'media_plus_description' | string;
   }>;
-  editions?: Edition[]; // New field for game editions
+  editions?: Edition[];
 }
 
 
@@ -104,7 +104,7 @@ export function GameCard({ game }: { game: Game }) {
   return (
     <Link
       href={`/games/${game.id}`}
-      className="group relative rounded-lg overflow-hidden shadow-xl cursor-pointer aspect-[4/3] h-full flex flex-col bg-card"
+      className="group relative rounded-lg overflow-hidden shadow-xl cursor-pointer aspect-[4/3] h-full flex flex-col bg-card border border-transparent group-hover:border-primary/50 transition-all duration-300"
       aria-label={`View details for ${game.title}`}
     >
       <div className="relative w-full h-full">
@@ -118,7 +118,7 @@ export function GameCard({ game }: { game: Game }) {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-black/80 transition-all duration-300 ease-in-out" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-black/60 transition-all duration-300 ease-in-out" />
       <div className="absolute bottom-0 left-0 right-0 p-4 text-snow-white">
         <h3 className="font-headline text-xl font-bold mb-1 text-shadow">{game.title}</h3>
         <p className="text-xs text-gray-300 mb-2 line-clamp-2">{game.shortDescription || game.description.substring(0,60)+'...'}</p>

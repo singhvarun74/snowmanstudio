@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import { Twitter, Instagram, Youtube } from 'lucide-react'; 
 import Logo from '@/components/icons/logo';
+import { cn } from '@/lib/utils';
 
 const DiscordIconFooter = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
@@ -30,7 +31,6 @@ export default function Footer() {
     <footer className="bg-background text-snow-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Column 1: Logo & Copyright */}
           <div>
             <Link href="/" className="mb-4 inline-block">
               <Logo className="h-10 w-auto" />
@@ -40,13 +40,18 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Column 2: Quick Links */}
           <div>
             <h5 className="font-headline text-lg font-semibold mb-4">Quick Links</h5>
             <ul className="space-y-2">
               {navLinks.map(link => (
                 <li key={link.href}>
-                  <Link href={link.href} className="hover:text-accent transition-colors duration-150 text-sm">
+                  <Link 
+                    href={link.href} 
+                    className={cn(
+                        "hover:text-accent transition-all duration-150 ease-out text-sm",
+                        "hover:text-shadow-glow-primary"
+                      )}
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -54,23 +59,28 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Social Icons */}
           <div>
             <h5 className="font-headline text-lg font-semibold mb-4">Follow Us</h5>
             <div className="flex space-x-4">
               {socialLinks.map(social => (
-                <a key={social.label} href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-accent transition-colors duration-150">
+                <a 
+                  key={social.label} 
+                  href={social.href} 
+                  aria-label={social.label} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-400 hover:text-accent transition-colors duration-150"
+                >
                   {social.icon}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Column 4: Newsletter Placeholder */}
           <div>
             <h5 className="font-headline text-lg font-semibold mb-4">Newsletter</h5>
             <p className="text-sm text-gray-400">
-              Stay updated! Sign up on our <Link href="/contact" className="underline hover:text-accent transition-colors">Contact page</Link>.
+              Stay updated! Sign up on our <Link href="/contact" className={cn("underline hover:text-accent transition-colors duration-150 ease-out", "hover:text-shadow-glow-primary")}>Contact page</Link>.
             </p>
           </div>
         </div>
@@ -81,4 +91,3 @@ export default function Footer() {
     </footer>
   );
 }
-

@@ -36,52 +36,45 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const scrollDown = currentScrollY > lastScrollY.current;
-      const minScrollDiff = 10; // Minimum scroll difference to trigger a change
+      const minScrollDiff = 10; 
 
-      if (currentScrollY <= minScrollDiff) { // At the very top or very close to it
+      if (currentScrollY <= minScrollDiff) { 
         setShowHeader(true);
       } else if (scrollDown && currentScrollY > lastScrollY.current + minScrollDiff) {
-        // Scrolling down significantly
         setShowHeader(false);
       } else if (!scrollDown && currentScrollY < lastScrollY.current - minScrollDiff) {
-        // Scrolling up significantly
         setShowHeader(true);
       }
-      // If scroll difference is too small, do nothing to prevent jitter
       
-      lastScrollY.current = Math.max(0, currentScrollY); // Update last scroll position, ensure it's not negative
+      lastScrollY.current = Math.max(0, currentScrollY); 
     };
 
-    // Initialize header visibility based on current scroll position
     handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isMounted]); // Effect runs once after mount
+  }, [isMounted]); 
 
   return (
     <header
       ref={headerRef}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out',
-        // Removed 'bg-background shadow-md' to make it transparent
         showHeader ? 'translate-y-0' : '-translate-y-full'
       )}
     >
-      {/* Header Content */}
       <div
         className={cn(
           'container mx-auto px-4 flex justify-between items-center',
-          'py-2' // Consistent padding for the content within the transparent header
+          'py-2' 
         )}
       >
         <Link href="/" aria-label="Snowman Studio Home" onClick={() => isMobileMenuOpen && setIsMobileMenuOpen(false)}>
           <Logo className="h-10 md:h-12 w-auto" />
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-4">
           <nav className="flex space-x-6 items-center">
             {navLinks.map((link) => (
@@ -89,8 +82,8 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-sm font-medium transition-colors duration-200 relative group',
-                  pathname === link.href ? 'text-primary' : 'text-foreground hover:text-primary'
+                  'text-sm font-medium transition-all duration-150 ease-out relative group',
+                  pathname === link.href ? 'text-primary' : 'text-foreground hover:text-primary hover:text-shadow-glow-primary'
                 )}
               >
                 {link.label}
@@ -103,7 +96,6 @@ export default function Header() {
           </nav>
         </div>
 
-        {/* Mobile Navigation */}
         <div className="md:hidden flex items-center space-x-2">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
@@ -129,8 +121,8 @@ export default function Header() {
                       href={link.href}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={cn(
-                        'text-xl font-medium transition-colors duration-200',
-                        pathname === link.href ? 'text-primary' : 'text-foreground hover:text-primary'
+                        'text-xl font-medium transition-all duration-150 ease-out',
+                        pathname === link.href ? 'text-primary' : 'text-foreground hover:text-primary hover:text-shadow-glow-primary'
                       )}
                     >
                       {link.label}

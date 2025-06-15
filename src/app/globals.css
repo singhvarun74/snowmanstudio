@@ -18,39 +18,39 @@ html {
     --popover: 0 0% 0%; /* Jet Black */
     --popover-foreground: 0 0% 96%;
 
-    --primary: 1 79% 65%; /* Lighter Cherry-red for dark mode */
-    --primary-foreground: 0 0% 13%; /* Charcoal for contrast on lighter red */
+    --primary: 0 100% 50%; /* #FF0000 Blood Red */
+    --primary-foreground: 0 0% 13%; /* Charcoal for contrast on blood red */
 
-    --secondary: 1 75% 50%; /* Darker, less saturated red for dark mode */
+    --secondary: 0 100% 40%; /* Darker Blood Red */
     --secondary-foreground: 0 0% 96%; /* Light Gray */
 
     --muted: 0 0% 25%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 0 85% 70%; /* Vibrant Light Red for dark mode */
+    --accent: 0 100% 60%; /* Lighter/Brighter Blood Red */
     --accent-foreground: 0 0% 100%; /* White */
 
-    --destructive: 350 75% 60%; /* Lighter version of the new destructive red for dark mode */
+    --destructive: 0 100% 50%; /* #FF0000 Blood Red */
     --destructive-foreground: 0 0% 13%; /* Charcoal */
 
     --border: 0 0% 25%;
     --input: 0 0% 20%;
-    --ring: 1 79% 65%; /* Lighter Cherry-red for focus rings (new primary dark) */
+    --ring: 0 100% 50%; /* #FF0000 Blood Red for focus rings */
     
     /* Sidebar variables for dark theme (assuming these are desired defaults) */
     --sidebar-background: 0 0% 10%; /* Even darker charcoal for dark sidebar */
     --sidebar-foreground: 0 0% 85%; /* Lighter gray for text */
-    --sidebar-primary: 1 79% 65%; /* Same as primary */
+    --sidebar-primary: 0 100% 50%; /* Same as primary - Blood Red */
     --sidebar-primary-foreground: 0 0% 13%; /* Same as primary-foreground */
     --sidebar-accent: 0 0% 20%; /* Dark accent */
     --sidebar-accent-foreground: 0 0% 96%; /* Light gray for text on accent */
     --sidebar-border: 0 0% 30%;
-    --sidebar-ring: 1 79% 65%;
+    --sidebar-ring: 0 100% 50%; /* Blood Red */
 
     /* Custom properties for easy theme tweaking - these define specific colors by name, reflecting dark theme defaults */
     --color-charcoal: 0 0% 13%;
     --color-snow-white: 0 0% 100%; /* Still relevant for potential explicit use */
-    --color-cherry-red: 1 79% 65%; /* Dark theme version */
+    --color-cherry-red: 0 100% 50%; /* Dark theme version - Blood Red */
     --color-light-gray: 0 0% 96%;
   }
 }
@@ -117,3 +117,8 @@ html {
   border-bottom-width: 2px;
 }
 
+/* Brevo form button hover glow */
+.sib-form-block__button:hover {
+  box-shadow: 0 0 12px 3px hsl(var(--primary) / 0.5);
+  transition: box-shadow 0.15s ease-out;
+}

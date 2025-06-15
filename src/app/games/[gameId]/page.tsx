@@ -12,7 +12,7 @@ import AnimateOnScroll from '@/components/motion/animate-on-scroll';
 import { GameCard, type Game, type MediaItem, type Edition, type EditionItem } from '@/components/sections/home/featured-games';
 import {
   ChevronLeft, ChevronRight, Star, ListChecks, Gamepad2, CalendarDays, Film,
-  GalleryHorizontal, Tag, ShoppingCart, Heart, DownloadCloud, Info, HelpCircle, Trophy, Play, PlusCircle
+  GalleryHorizontal, Tag, Heart, DownloadCloud, Info, HelpCircle, Trophy, Play, PlusCircle
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
@@ -230,8 +230,8 @@ const GameEditionsSection: React.FC<GameEditionsSectionProps> = ({ editions }) =
         <Card
           key={edition.id}
           className={cn(
-            "flex flex-col rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl",
-            edition.isHighlighted ? "bg-blue-900/30 border-blue-700" : "bg-card border-border"
+            "flex flex-col rounded-lg overflow-hidden shadow-lg hover:shadow-2xl", // Removed explicit transition, relies on Card component's default
+            edition.isHighlighted ? "bg-blue-900/30 border-blue-700 hover:border-blue-500" : "bg-card border-border" // Generic Card hover will apply for non-highlighted
           )}
         >
           {edition.isHighlighted && edition.highlightBannerText && (
@@ -622,4 +622,3 @@ export function GameDetailPageLoadingFallback() {
     </div>
   );
 }
-

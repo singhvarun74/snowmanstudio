@@ -65,7 +65,7 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
-        'cherry-red': '#E53935',
+        'cherry-red': '#FF0000', 
         'charcoal': '#212121',
         'snow-white': '#FFFFFF',
         'light-gray': '#F5F5F5',
@@ -109,6 +109,7 @@ export default {
       },
       textShadow: {
         DEFAULT: '0 2px 4px rgba(0, 0, 0, 0.5)',
+        'glow-primary': '0 0 8px hsl(var(--primary))',
       },
     },
   },
