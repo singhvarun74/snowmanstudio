@@ -2,7 +2,7 @@
 "use client";
 
 import Image from 'next/image';
-import Link from 'next/link'; 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import AnimateOnScroll from '@/components/motion/animate-on-scroll';
@@ -12,42 +12,67 @@ import { cn } from '@/lib/utils';
 
 export interface MediaItem {
   id: string;
-  type: 'image' | 'video' | 'embed'; // Added 'embed' type
-  src: string; // URL for full image or video/content embed
-  thumbnailSrc: string; // URL for thumbnail image
+  type: 'image' | 'video' | 'embed';
+  src: string;
+  thumbnailSrc: string;
   alt: string;
-  imageHint?: string; // For AI image search if using placeholders
+  imageHint?: string;
 }
 
-// Export Game interface for reusability
+export interface EditionItem {
+  id: string;
+  text: string;
+  iconUrl?: string;
+  iconHint?: string;
+  isAction?: boolean; // For items like "100+ PC games" that might have a plus icon
+}
+
+export interface Edition {
+  id: string;
+  title: string;
+  imageUrl: string;
+  imageHint?: string;
+  items: EditionItem[];
+  priceDetails: {
+    currencySymbol: string;
+    currentPrice: string;
+    originalPrice?: string;
+    period?: string; // e.g., "/month"
+  };
+  buttonText: string;
+  buttonUrl: string;
+  buttonVariant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link' | 'premium';
+  isHighlighted?: boolean;
+  highlightBannerText?: string;
+}
+
 export interface Game {
   id: string;
   title: string;
-  subtitle?: string; 
-  media: MediaItem[]; 
-  // itchioEmbedUrl?: string | null; // Removed this field
+  subtitle?: string;
+  media: MediaItem[];
   itchioPageUrl: string;
-  buyNowUrl?: string; 
-  logoUrl?: string; 
+  buyNowUrl?: string;
+  logoUrl?: string;
   description: string;
-  isFeatured: boolean; 
-  showInFeaturedGrid: boolean; 
+  isFeatured: boolean;
+  showInFeaturedGrid: boolean;
   shortDescription?: string;
-  shortDescriptionUnderGallery?: string; 
+  shortDescriptionUnderGallery?: string;
   heroTagline?: string;
   genres?: string[];
   platforms?: string[];
   releaseDate?: string;
   keyFeatures?: string[];
   developerNotes?: string;
-  rating?: number; 
-  ratingCount?: number; 
-  customTags?: Array<{ 
+  rating?: number;
+  ratingCount?: number;
+  customTags?: Array<{
     text: string;
-    icon?: string; 
-    iconColor?: string; 
+    icon?: string;
+    iconColor?: string;
   }>;
-  priceDetails?: { 
+  priceDetails?: {
     currencySymbol?: string;
     currentPrice: string;
     originalPrice?: string;
@@ -55,15 +80,11 @@ export interface Game {
     baseGameTag?: string;
     saleEndDate?: string;
   };
-  tabSections?: Array<{ 
+  tabSections?: Array<{
     title: string;
-    contentKey: keyof Game | 'media_plus_description' | string; 
+    contentKey: keyof Game | 'media_plus_description' | string;
   }>;
-  // Deprecated fields, kept for potential data migration reference but should be consolidated into `media`
-  imageUrl?: string; 
-  imageHint?: string; 
-  galleryImages?: Array<{ src: string; alt: string; imageHint: string }>; 
-  trailerUrl?: string; 
+  editions?: Edition[]; // New field for game editions
 }
 
 
@@ -74,11 +95,10 @@ interface FeaturedGamesProps {
 const GAMES_PER_CAROUSEL_VIEW = 3;
 const TRANSITION_DURATION_MS = 500;
 
-// Export GameCard for reusability
 export function GameCard({ game }: { game: Game }) {
   const cardMedia = game.media && game.media.length > 0 ? game.media[0] : null;
-  const imageUrl = cardMedia ? (cardMedia.thumbnailSrc || cardMedia.src) : (game.imageUrl || 'https://placehold.co/400x300.png');
-  const imageHint = cardMedia ? cardMedia.imageHint : (game.imageHint || 'gameplay scene');
+  const imageUrl = cardMedia ? (cardMedia.thumbnailSrc || cardMedia.src) : 'https://placehold.co/400x300.png';
+  const imageHint = cardMedia ? cardMedia.imageHint : 'gameplay scene';
 
 
   return (
@@ -132,11 +152,9 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
         setAllGamesData(jsonData);
 
         if (!showAllGames) {
-          // On homepage "More Games" section, filter by showInFeaturedGrid
           const gridGames = jsonData.filter(game => game.showInFeaturedGrid);
           setGamesForDisplay(gridGames);
         } else {
-          // On /games page, show all games (or could add a filter here too if needed)
           setGamesForDisplay(jsonData);
         }
       } catch (err) {
@@ -186,8 +204,7 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
   if (gamesForDisplay.length === 0 && !isLoading) {
      return <div className="text-center text-lg text-muted-foreground py-8">No games to display at the moment.</div>;
   }
-  
-  // Grid display for /games page or if carousel conditions aren't met for homepage section
+
   if (showAllGames || gamesForDisplay.length <= GAMES_PER_CAROUSEL_VIEW && !showAllGames) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -204,8 +221,7 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
       </div>
     );
   }
-  
-  // Carousel display for homepage "More Games" if enough games and not showAllGames
+
   const canNavigatePrev = carouselCurrentIndex > 0;
   const canNavigateNext = carouselCurrentIndex < gamesForDisplay.length - GAMES_PER_CAROUSEL_VIEW;
   const showNavigationArrows = gamesForDisplay.length > GAMES_PER_CAROUSEL_VIEW;
@@ -248,7 +264,7 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
             {gamesForDisplay.map((game) => (
               <div
                 key={game.id}
-                className="flex-shrink-0 px-2" 
+                className="flex-shrink-0 px-2"
                 style={{
                   flexBasis: `calc(100% / ${GAMES_PER_CAROUSEL_VIEW})`,
                 }}

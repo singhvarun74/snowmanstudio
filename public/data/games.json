@@ -3,201 +3,244 @@
   {
     "id": "arctic-adventure",
     "title": "Arctic Adventure",
-    "subtitle": "Deluxe Frostbite Edition",
-    "isFeatured": true,
-    "showInFeaturedGrid": true,
-    "heroTagline": "Embark on a Frostbitten Journey!",
-    "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://genkistudio.itch.io/arctic-adventure",
-    "buyNowUrl": "https://genkistudio.itch.io/arctic-adventure",
-    "logoUrl": "/images/logos/arctic-adventure-logo.png",
-    "shortDescription": "A thrilling survival game set in the harsh, icy wilderness.",
-    "shortDescriptionUnderGallery": "Survive the relentless cold, build shelters, and uncover the secrets of a lost polar expedition. Every choice matters in this unforgiving landscape.",
-    "description": "Arctic Adventure challenges players to endure the extreme conditions of the Arctic. Scavenge for resources, craft essential tools, manage your warmth and hunger, and navigate treacherous terrains. Face off against fierce wildlife and the biting cold itself. Will you conquer the Arctic, or will it claim you?\n\nExplore vast, procedurally generated ice floes, frozen caves, and abandoned research stations. The game features a dynamic weather system that directly impacts gameplay, forcing you to adapt your strategies on the fly. Unravel a compelling storyline through journal entries and environmental clues left by a previous expedition that mysteriously vanished.",
-    "genres": ["Survival", "Adventure", "Open World"],
-    "platforms": ["PC", "Mac", "Linux"],
-    "releaseDate": "2024-03-15",
-    "rating": 4.7,
-    "ratingCount": 235,
-    "customTags": [
-      { "text": "Challenging Survival", "icon": "Flame", "iconColor": "text-orange-400" },
-      { "text": "Atmospheric Exploration", "icon": "MountainSnow", "iconColor": "text-blue-300" }
-    ],
-    "priceDetails": {
-      "currencySymbol": "₹",
-      "currentPrice": "120.40",
-      "originalPrice": "602.00",
-      "discountPercentage": "80%",
-      "baseGameTag": "Base Game",
-      "saleEndDate": "Sale ends 6/19/2025 at 11:00 AM"
-    },
-    "keyFeatures": [
-      "Intense Arctic survival mechanics.",
-      "Vast procedurally generated world.",
-      "Dynamic weather and day/night cycle.",
-      "Compelling mystery to uncover.",
-      "Crafting and base building."
-    ],
+    "subtitle": "Frostbite Edition",
     "media": [
       {
-        "id": "video_trailer_aa",
+        "id": "main-trailer",
         "type": "video",
-        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ", 
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Trailer+Thumb",
-        "alt": "Arctic Adventure Official Trailer",
-        "imageHint": "game trailer"
+        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "thumbnailSrc": "https://placehold.co/800x450.png",
+        "alt": "Arctic Adventure Trailer",
+        "imageHint": "arctic landscape game"
       },
       {
-        "id": "image_gameplay1_aa",
+        "id": "screenshot1",
         "type": "image",
-        "src": "https://placehold.co/1280x720.png?text=Arctic+Gameplay+1",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Gameplay+1+Thumb",
-        "alt": "Arctic Adventure Gameplay Screenshot 1",
-        "imageHint": "arctic landscape gameplay"
+        "src": "https://placehold.co/1280x720.png",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Gameplay Screenshot 1",
+        "imageHint": "snowy gameplay scene"
       },
       {
-        "id": "image_gameplay2_aa",
+        "id": "screenshot2",
         "type": "image",
-        "src": "https://placehold.co/1280x720.png?text=Arctic+Gameplay+2",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Gameplay+2+Thumb",
-        "alt": "Arctic Adventure Gameplay Screenshot 2",
+        "src": "https://placehold.co/1280x720.png",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Gameplay Screenshot 2",
         "imageHint": "ice cave exploration"
       },
       {
-        "id": "image_character_aa",
-        "type": "image",
-        "src": "https://placehold.co/1280x720.png?text=Arctic+Character",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Character+Thumb",
-        "alt": "Arctic Adventure Character",
-        "imageHint": "survival character gear"
+        "id": "itch-embed",
+        "type": "embed",
+        "src": "https://itch.io/embed-upload/10299038?color=333333",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Play Arctic Adventure Demo",
+        "imageHint": "game demo interactive"
+      }
+    ],
+    "logoUrl": "https://placehold.co/300x150.png?text=Arctic+Logo",
+    "itchioPageUrl": "https://axcellgames.itch.io/arctic-adventure",
+    "buyNowUrl": "https://axcellgames.itch.io/arctic-adventure",
+    "description": "Embark on a thrilling journey through frozen wastes in Arctic Adventure! Solve ancient puzzles, battle mythical ice creatures, and uncover the secrets of a lost civilization. Explore vast, beautiful, yet perilous environments, from towering glaciers to mysterious ice caverns. Utilize your wits and unique ice-manipulation abilities to overcome challenges and survive the unforgiving arctic conditions. With a captivating story, stunning visuals, and engaging gameplay, Arctic Adventure offers an unforgettable experience for explorers and puzzle-solvers alike. Are you brave enough to face the cold and discover what lies hidden beneath the ice?",
+    "isFeatured": true,
+    "showInFeaturedGrid": true,
+    "shortDescription": "Explore frozen wastes, solve puzzles, and battle ice creatures.",
+    "shortDescriptionUnderGallery": "Survive the frozen wilds and uncover ancient mysteries in this gripping single-player adventure.",
+    "heroTagline": "Uncover the Frozen Secrets",
+    "genres": ["Adventure", "Puzzle", "Exploration"],
+    "platforms": ["PC", "Mac", "Linux", "Web"],
+    "releaseDate": "2023-12-01",
+    "keyFeatures": [
+      "Expansive arctic world to explore.",
+      "Challenging environmental puzzles.",
+      "Unique ice-manipulation abilities.",
+      "Engaging storyline with hidden lore.",
+      "Atmospheric soundtrack and visuals."
+    ],
+    "rating": 4.7,
+    "ratingCount": 182,
+    "customTags": [
+      {"text": "Single Player", "icon": "User"},
+      {"text": "Atmospheric", "icon": "CloudDrizzle", "iconColor": "text-blue-400"},
+      {"text": "Puzzle Solving", "icon": "Puzzle"}
+    ],
+    "priceDetails": {
+      "currencySymbol": "₹",
+      "currentPrice": "1599",
+      "originalPrice": "1999",
+      "discountPercentage": "20%",
+      "baseGameTag": "Base Game",
+      "saleEndDate": "Sale ends Jan 31st"
+    },
+    "tabSections": [
+      {"title": "Overview", "contentKey": "media_plus_description"},
+      {"title": "Add-Ons", "contentKey": "editions"},
+      {"title": "Achievements", "contentKey": "achievements_placeholder"}
+    ],
+    "editions": [
+      {
+        "id": "standard",
+        "title": "Standard Edition",
+        "imageUrl": "https://placehold.co/400x250.png?text=Standard+Edition",
+        "imageHint": "game boxart standard",
+        "items": [
+          {"id": "base", "text": "Base game", "iconUrl": "https://placehold.co/48x48.png?text=G", "iconHint": "game disc icon"}
+        ],
+        "priceDetails": {"currencySymbol": "₹", "currentPrice": "1599", "originalPrice": "1999"},
+        "buttonText": "GET THE GAME",
+        "buttonUrl": "https://axcellgames.itch.io/arctic-adventure",
+        "buttonVariant": "default"
       },
       {
-        "id": "image_base_aa",
-        "type": "image",
-        "src": "https://placehold.co/1280x720.png?text=Arctic+Base",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Base+Thumb",
-        "alt": "Arctic Adventure Base Building",
-        "imageHint": "snow shelter interior"
+        "id": "deluxe",
+        "title": "Deluxe Edition",
+        "imageUrl": "https://placehold.co/400x250.png?text=Deluxe+Edition",
+        "imageHint": "game boxart deluxe",
+        "items": [
+          {"id": "base", "text": "Base game", "iconUrl": "https://placehold.co/48x48.png?text=G", "iconHint": "game disc icon"},
+          {"id": "dlxpack", "text": "Deluxe Pack", "iconUrl": "https://placehold.co/48x48.png?text=D", "iconHint": "treasure chest icon"},
+          {"id": "artbook", "text": "Artbook/Soundtrack", "iconUrl": "https://placehold.co/48x48.png?text=A", "iconHint": "music note icon"}
+        ],
+        "priceDetails": {"currencySymbol": "₹", "currentPrice": "1999", "originalPrice": "2499"},
+        "buttonText": "GET THE GAME",
+        "buttonUrl": "https://axcellgames.itch.io/arctic-adventure-deluxe",
+        "buttonVariant": "default"
+      },
+      {
+        "id": "master",
+        "title": "Master Explorer Edition",
+        "imageUrl": "https://placehold.co/400x250.png?text=Master+Edition",
+        "imageHint": "game boxart master",
+        "items": [
+          {"id": "base", "text": "Base game", "iconUrl": "https://placehold.co/48x48.png?text=G", "iconHint": "game disc icon"},
+          {"id": "dlxpack", "text": "Deluxe Pack", "iconUrl": "https://placehold.co/48x48.png?text=D", "iconHint": "treasure chest icon"},
+          {"id": "artbook", "text": "Artbook/Soundtrack", "iconUrl": "https://placehold.co/48x48.png?text=A", "iconHint": "music note icon"},
+          {"id": "masterpack", "text": "Master Explorer Pack", "iconUrl": "https://placehold.co/48x48.png?text=M", "iconHint": "map icon"},
+          {"id": "bonus", "text": "Bonus Content", "iconUrl": "https://placehold.co/48x48.png?text=B", "iconHint": "star icon"}
+        ],
+        "priceDetails": {"currencySymbol": "₹", "currentPrice": "2999", "originalPrice": "3999"},
+        "buttonText": "GET THE GAME",
+        "buttonUrl": "https://axcellgames.itch.io/arctic-adventure-master",
+        "buttonVariant": "default"
+      },
+      {
+        "id": "premium",
+        "title": "Master Explorer Edition",
+        "imageUrl": "https://placehold.co/400x250.png?text=Premium+Access",
+        "imageHint": "game art premium",
+        "highlightBannerText": "Included with Snowman+ Premium",
+        "isHighlighted": true,
+        "items": [
+          {"id": "base", "text": "Base game", "iconUrl": "https://placehold.co/48x48.png?text=G", "iconHint": "game disc icon"},
+          {"id": "dlxpack", "text": "Deluxe Pack", "iconUrl": "https://placehold.co/48x48.png?text=D", "iconHint": "treasure chest icon"},
+          {"id": "artbook", "text": "Artbook/Soundtrack", "iconUrl": "https://placehold.co/48x48.png?text=A", "iconHint": "music note icon"},
+          {"id": "masterpack", "text": "Master Explorer Pack", "iconUrl": "https://placehold.co/48x48.png?text=M", "iconHint": "map icon"},
+          {"id": "bonus", "text": "Bonus Content", "iconUrl": "https://placehold.co/48x48.png?text=B", "iconHint": "star icon"},
+          {"id": "plusgames", "text": "100+ PC games\nIncluding new releases", "isAction": true}
+        ],
+        "priceDetails": {"currencySymbol": "₹", "currentPrice": "799", "period": "/month"},
+        "buttonText": "JOIN NOW",
+        "buttonUrl": "https://example.com/snowman-plus",
+        "buttonVariant": "premium"
       }
-    ],
-    "tabSections": [
-      { "title": "Overview", "contentKey": "media_plus_description" },
-      { "title": "Add-Ons", "contentKey": "addOnsContentPlaceholder" },
-      { "title": "Achievements", "contentKey": "achievementsContentPlaceholder" }
-    ],
-    "developerNotes": "We poured our hearts into creating a truly challenging and immersive survival experience. We hope you enjoy discovering the secrets of the Arctic!"
+    ]
   },
   {
-    "id": "pixel-pioneer",
-    "title": "Pixel Pioneer",
+    "id": "cosmic-odyssey",
+    "title": "Cosmic Odyssey",
+    "media": [
+      {
+        "id": "main",
+        "type": "image",
+        "src": "https://placehold.co/1280x720.png",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Cosmic Odyssey",
+        "imageHint": "space exploration galaxy"
+      }
+    ],
+    "itchioPageUrl": "https://example.com/cosmic-odyssey",
+    "description": "Chart a course through an uncharted galaxy. Discover new planets, alien civilizations, and cosmic anomalies.",
     "isFeatured": true,
     "showInFeaturedGrid": true,
-    "heroTagline": "Craft Your Legacy, One Block at a Time!",
-    "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://genkistudio.itch.io/pixel-pioneer",
-    "logoUrl": "/images/logos/pixel-pioneer-logo.png",
-    "description": "Pixel Pioneer is a charming retro-style farming and adventure game. Cultivate your land, raise adorable pixel animals, explore mysterious caves, and befriend quirky villagers. With its relaxing gameplay and endless customization options, Pixel Pioneer is the perfect escape to a simpler, blockier world.",
-    "shortDescription": "A relaxing retro farming and adventure sim.",
-    "media": [
-      {
-        "id": "main_pp",
-        "type": "image",
-        "src": "https://placehold.co/600x400.png?text=Pixel+Pioneer+Main",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Pixel+Pioneer+Thumb",
-        "alt": "Pixel Pioneer Gameplay",
-        "imageHint": "pixel art farm"
-      }
-    ],
-    "genres": ["Farming Sim", "RPG", "Retro"],
-    "platforms": ["PC", "Web"],
-    "releaseDate": "2023-10-20"
+    "shortDescription": "Explore an uncharted galaxy and discover its secrets.",
+    "heroTagline": "Your Galaxy Awaits"
   },
   {
-    "id": "cosmic-drifter",
-    "title": "Cosmic Drifter",
+    "id": "chronoscape-chronicles",
+    "title": "Chronoscape Chronicles",
+     "media": [
+      {
+        "id": "main",
+        "type": "image",
+        "src": "https://placehold.co/1280x720.png",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Chronoscape Chronicles",
+        "imageHint": "time travel fantasy"
+      }
+    ],
+    "itchioPageUrl": "https://example.com/chronoscape-chronicles",
+    "description": "A narrative-driven RPG where your choices echo through time. Manipulate past events to alter the future.",
     "isFeatured": true,
     "showInFeaturedGrid": true,
-    "heroTagline": "Navigate the Stars, Unravel the Cosmos.",
-    "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://genkistudio.itch.io/cosmic-drifter",
-    "logoUrl": "/images/logos/cosmic-drifter-logo.png",
-    "description": "Cosmic Drifter is a visually stunning space exploration game with a focus on narrative and discovery. Pilot your ship through breathtaking nebulas, encounter strange alien civilizations, and piece together the remnants of a long-lost galactic empire. Features a non-linear story and meaningful choices.",
-    "shortDescription": "A narrative-driven space exploration adventure.",
-     "media": [
-      {
-        "id": "main_cd",
-        "type": "image",
-        "src": "https://placehold.co/600x400.png?text=Cosmic+Drifter+Main",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Cosmic+Drifter+Thumb",
-        "alt": "Cosmic Drifter Gameplay",
-        "imageHint": "spaceship nebula"
-      }
-    ],
-    "genres": ["Space Sim", "Adventure", "Sci-Fi"],
-    "platforms": ["PC", "Xbox"],
-    "releaseDate": "2024-01-05"
+    "shortDescription": "A time-bending RPG where choices matter.",
+    "heroTagline": "Rewrite History Itself"
   },
   {
-    "id": "placeholder-game-1",
-    "title": "Chrono Weaver",
-    "isFeatured": false,
-    "showInFeaturedGrid": true,
-    "itchioPageUrl": "https://genkistudio.itch.io/chrono-weaver",
-    "logoUrl": "/images/logos/chrono-weaver-logo.png",
-    "description": "A time-bending puzzle platformer where you manipulate past and future versions of yourself to overcome obstacles.",
-     "media": [
-      {
-        "id": "main_cw",
-        "type": "image",
-        "src": "https://placehold.co/600x400.png?text=Chrono+Weaver+Main",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Chrono+Weaver+Thumb",
-        "alt": "Chrono Weaver Gameplay",
-        "imageHint": "puzzle platformer time"
-      }
-    ],
-    "genres": ["Puzzle", "Platformer"],
-    "platforms": ["PC", "Switch"]
-  },
-  {
-    "id": "placeholder-game-2",
-    "title": "Deep Sea Tycoon",
-    "isFeatured": false,
-    "showInFeaturedGrid": true,
-    "itchioPageUrl": "https://genkistudio.itch.io/deep-sea-tycoon",
-    "logoUrl": "/images/logos/deep-sea-tycoon-logo.png",
-    "description": "Manage an underwater research facility, discover new marine species, and balance your budget in this challenging tycoon game.",
+    "id": "neon-drift-circuit",
+    "title": "Neon Drift Circuit",
     "media": [
       {
-        "id": "main_dst",
+        "id": "main",
         "type": "image",
-        "src": "https://placehold.co/600x400.png?text=Deep+Sea+Tycoon",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Deep+Sea+Thumb",
-        "alt": "Deep Sea Tycoon Gameplay",
-        "imageHint": "underwater base builder"
+        "src": "https://placehold.co/1280x720.png",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Neon Drift Circuit",
+        "imageHint": "cyberpunk racing car"
       }
     ],
-    "genres": ["Tycoon", "Simulation"],
-    "platforms": ["PC"]
+    "itchioPageUrl": "https://example.com/neon-drift-circuit",
+    "description": "High-octane arcade racing with a retro-futuristic aesthetic. Master the drift to dominate the leaderboards.",
+    "isFeatured": true,
+    "showInFeaturedGrid": true,
+    "shortDescription": "Arcade racing with a retro-futuristic vibe.",
+    "heroTagline": "Master the Neon Drift"
   },
   {
-    "id": "placeholder-game-3",
-    "title": "Rhythm Runner",
-    "isFeatured": false,
-    "showInFeaturedGrid": false,
-    "itchioPageUrl": "https://genkistudio.itch.io/rhythm-runner",
-    "logoUrl": "/images/logos/rhythm-runner-logo.png",
-    "description": "A fast-paced rhythm game where your actions sync with an electrifying soundtrack. Stay on beat to survive!",
+    "id": "garden-gnomes-tale",
+    "title": "Garden Gnome's Tale",
     "media": [
       {
-        "id": "main_rr",
+        "id": "main",
         "type": "image",
-        "src": "https://placehold.co/600x400.png?text=Rhythm+Runner+Main",
-        "thumbnailSrc": "https://placehold.co/300x169.png?text=Rhythm+Runner+Thumb",
-        "alt": "Rhythm Runner Gameplay",
-        "imageHint": "music rhythm game"
+        "src": "https://placehold.co/1280x720.png",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Garden Gnome's Tale",
+        "imageHint": "cozy farming garden"
       }
     ],
-    "genres": ["Rhythm", "Action"],
-    "platforms": ["PC", "Mobile", "Web"]
+    "itchioPageUrl": "https://example.com/garden-gnomes-tale",
+    "description": "A cozy farming and life simulation game. Cultivate your garden, befriend whimsical characters, and uncover village secrets.",
+    "isFeatured": false,
+    "showInFeaturedGrid": true,
+    "shortDescription": "Cozy farming and life simulation."
+  },
+  {
+    "id": "puzzle-of-the-ancients",
+    "title": "Puzzle of the Ancients",
+    "media": [
+      {
+        "id": "main",
+        "type": "image",
+        "src": "https://placehold.co/1280x720.png",
+        "thumbnailSrc": "https://placehold.co/320x180.png",
+        "alt": "Puzzle of the Ancients",
+        "imageHint": "ancient ruins puzzle"
+      }
+    ],
+    "itchioPageUrl": "https://example.com/puzzle-of-the-ancients",
+    "description": "A challenging puzzle game set in ancient ruins. Decipher cryptic clues and manipulate mechanisms to progress.",
+    "isFeatured": false,
+    "showInFeaturedGrid": true,
+    "shortDescription": "Challenging puzzles in ancient ruins."
   }
 ]

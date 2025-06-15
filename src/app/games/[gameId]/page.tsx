@@ -9,10 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AnimateOnScroll from '@/components/motion/animate-on-scroll';
-import { GameCard, type Game, type MediaItem } from '@/components/sections/home/featured-games';
+import { GameCard, type Game, type MediaItem, type Edition, type EditionItem } from '@/components/sections/home/featured-games';
 import {
   ChevronLeft, ChevronRight, Star, ListChecks, Gamepad2, CalendarDays, Film,
-  GalleryHorizontal, Tag, ShoppingCart, Heart, DownloadCloud, Info, HelpCircle, Trophy, Play
+  GalleryHorizontal, Tag, ShoppingCart, Heart, DownloadCloud, Info, HelpCircle, Trophy, Play, PlusCircle
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
@@ -21,7 +21,7 @@ import { cn } from '@/lib/utils';
 
 async function getGameById(id: string): Promise<Game | undefined> {
   try {
-    const response = await fetch('/data/games.json'); // Use relative path
+    const response = await fetch('/data/games.json');
     if (!response.ok) {
       console.error(`Failed to fetch games.json: ${response.status}`);
       return undefined;
@@ -36,7 +36,7 @@ async function getGameById(id: string): Promise<Game | undefined> {
 
 async function getOtherGames(currentId: string, count: number = 4): Promise<Game[]> {
   try {
-    const response = await fetch('/data/games.json'); // Use relative path
+    const response = await fetch('/data/games.json');
      if (!response.ok) {
       console.error(`Failed to fetch games.json for other games: ${response.status}`);
       return [];
@@ -209,6 +209,108 @@ const GameMediaViewer: React.FC<GameMediaViewerProps> = ({ media, gameTitle }) =
   );
 };
 
+interface GameEditionsSectionProps {
+  editions?: Edition[];
+}
+
+const GameEditionsSection: React.FC<GameEditionsSectionProps> = ({ editions }) => {
+  if (!editions || editions.length === 0) {
+    return (
+      <Card className="shadow-none border-none bg-transparent">
+        <CardContent>
+          <p className="text-muted-foreground">No special editions or add-ons currently available for this game.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+      {editions.map((edition) => (
+        <Card
+          key={edition.id}
+          className={cn(
+            "flex flex-col rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl",
+            edition.isHighlighted ? "bg-blue-900/30 border-blue-700" : "bg-card border-border"
+          )}
+        >
+          {edition.isHighlighted && edition.highlightBannerText && (
+            <div className="p-2 text-center bg-blue-600 text-white text-xs font-semibold">
+              {edition.highlightBannerText}
+            </div>
+          )}
+          <div className="relative aspect-[16/10] w-full">
+            <Image
+              src={edition.imageUrl || 'https://placehold.co/400x250.png'}
+              alt={edition.title}
+              data-ai-hint={edition.imageHint || "game edition art"}
+              fill
+              style={{objectFit:"cover"}}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
+          </div>
+          <CardHeader className="p-4">
+            <CardTitle className={cn("text-lg font-semibold", edition.isHighlighted ? "text-primary-foreground" : "text-foreground")}>{edition.title}</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 flex-grow space-y-3">
+            <ul className="space-y-2 text-sm">
+              {edition.items.map((item) => (
+                <li key={item.id} className="flex items-center justify-between group">
+                  <div className="flex items-center">
+                    {item.iconUrl && (
+                      <div className="relative w-6 h-6 mr-2 shrink-0">
+                        <Image
+                          src={item.iconUrl}
+                          alt=""
+                          data-ai-hint={item.iconHint || "item icon"}
+                          fill
+                          style={{objectFit:"contain"}}
+                        />
+                      </div>
+                    )}
+                    {!item.iconUrl && item.isAction && <PlusCircle className="w-5 h-5 mr-2 text-primary shrink-0" />}
+                    <span className={cn(edition.isHighlighted ? "text-gray-300" : "text-muted-foreground", "group-hover:text-foreground transition-colors")}>
+                      {item.text}
+                    </span>
+                  </div>
+                  {!item.isAction && <ChevronRight className="h-4 w-4 text-muted-foreground/70 group-hover:text-primary transition-colors" />}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+          <div className="p-4 mt-auto border-t" style={{borderColor: edition.isHighlighted ? 'hsla(var(--border)/0.3)' : 'hsl(var(--border))'}}>
+            <div className="text-center mb-3">
+              {edition.priceDetails.originalPrice && (
+                <span className={cn("text-sm line-through mr-2", edition.isHighlighted ? "text-gray-400" : "text-muted-foreground")}>
+                  {edition.priceDetails.currencySymbol}{edition.priceDetails.originalPrice}
+                </span>
+              )}
+              <span className={cn("text-xl font-bold", edition.isHighlighted ? "text-primary-foreground" : "text-foreground")}>
+                {edition.priceDetails.currencySymbol}{edition.priceDetails.currentPrice}
+              </span>
+              {edition.priceDetails.period && (
+                <span className={cn("text-sm ml-1", edition.isHighlighted ? "text-gray-300" : "text-muted-foreground")}>
+                  {edition.priceDetails.period}
+                </span>
+              )}
+            </div>
+            <Button
+              asChild
+              variant={edition.buttonVariant || 'default'}
+              size="lg"
+              className="w-full font-semibold text-base py-3"
+            >
+              <Link href={edition.buttonUrl} target="_blank" rel="noopener noreferrer">
+                {edition.buttonText}
+              </Link>
+            </Button>
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+};
+
 
 function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: Game[] }) {
   const currencySymbol = game.priceDetails?.currencySymbol || '₹';
@@ -288,19 +390,14 @@ function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: G
             </TabsContent>
 
             <TabsContent value="add-ons">
-              <Card>
-                <CardHeader><CardTitle>Add-Ons</CardTitle></CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">Content for Add-Ons will be displayed here. Update `games.json` to populate this section.</p>
-                </CardContent>
-              </Card>
+               <GameEditionsSection editions={game.editions} />
             </TabsContent>
 
             <TabsContent value="achievements">
-              <Card>
-                <CardHeader><CardTitle>Achievements</CardTitle></CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">Content for Achievements will be displayed here. Update `games.json` to populate this section.</p>
+              <Card className="shadow-none border-none bg-transparent">
+                <CardHeader className="p-0"><CardTitle>Achievements</CardTitle></CardHeader>
+                <CardContent className="p-0">
+                  <p className="text-muted-foreground mt-2">Content for Achievements will be displayed here. Update `games.json` to populate this section.</p>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -428,7 +525,9 @@ export default function GameDetailPage({ params: paramsPromise }: { params: Prom
       const fetchedOtherGames = await getOtherGames(gameId);
       setOtherGames(fetchedOtherGames);
     }
-    loadData();
+    if (gameId) {
+      loadData();
+    }
   }, [gameId]);
 
   if (game === undefined) {
@@ -459,20 +558,43 @@ export function GameDetailPageLoadingFallback() {
           <div className="flex gap-4 border-b mb-6">
             <Skeleton className="h-10 w-24" /> <Skeleton className="h-10 w-24" /> <Skeleton className="h-10 w-24" />
           </div>
-          <Skeleton className="aspect-video w-full rounded-lg mb-4" />
-          <div className="flex gap-2 mb-4">
-            <Skeleton className="aspect-video w-24 h-auto rounded" />
-            <Skeleton className="aspect-video w-24 h-auto rounded" />
-            <Skeleton className="aspect-video w-24 h-auto rounded" />
+          {/* Placeholder for TabsContent */}
+          <div className="space-y-6">
+            <Skeleton className="aspect-video w-full rounded-lg mb-4" />
+            <div className="flex gap-2 mb-4">
+              <Skeleton className="aspect-video w-24 h-auto rounded" />
+              <Skeleton className="aspect-video w-24 h-auto rounded" />
+              <Skeleton className="aspect-video w-24 h-auto rounded" />
+            </div>
+            <Skeleton className="h-6 w-full mb-4" />
+            <Skeleton className="h-4 w-full mb-1" />
+            <Skeleton className="h-4 w-full mb-1" />
+            <Skeleton className="h-4 w-5/6 mb-4" />
+            <Skeleton className="h-6 w-1/3 my-4" />
+            <Skeleton className="h-4 w-full mb-1" />
+            <Skeleton className="h-4 w-5/6" />
+
+            {/* Skeleton for Editions Section */}
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                {[...Array(2)].map((_, i) => (
+                  <Card key={i} className="flex flex-col">
+                    <Skeleton className="aspect-[16/10] w-full" />
+                    <CardHeader><Skeleton className="h-6 w-3/4" /></CardHeader>
+                    <CardContent className="space-y-2 flex-grow">
+                      <Skeleton className="h-4 w-full" />
+                      <Skeleton className="h-4 w-5/6" />
+                      <Skeleton className="h-4 w-full" />
+                    </CardContent>
+                    <div className="p-4 border-t">
+                      <Skeleton className="h-8 w-1/2 mb-3 mx-auto" />
+                      <Skeleton className="h-12 w-full" />
+                    </div>
+                  </Card>
+                ))}
+              </div>
           </div>
-          <Skeleton className="h-6 w-full mb-4" />
-          <Skeleton className="h-4 w-full mb-1" />
-          <Skeleton className="h-4 w-full mb-1" />
-          <Skeleton className="h-4 w-5/6 mb-4" />
-           <Skeleton className="h-6 w-1/3 my-4" />
-           <Skeleton className="h-4 w-full mb-1" />
-           <Skeleton className="h-4 w-5/6" />
         </div>
+
 
         <div className="lg:col-span-4 space-y-6">
           <Skeleton className="aspect-[2/1] w-full max-w-xs mx-auto lg:mx-0 rounded" />
@@ -509,4 +631,3 @@ export function GameDetailPageLoadingFallback() {
     </div>
   );
 }
-
