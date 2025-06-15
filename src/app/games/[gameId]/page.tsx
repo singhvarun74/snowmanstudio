@@ -313,7 +313,9 @@ const GameEditionsSection: React.FC<GameEditionsSectionProps> = ({ editions }) =
 
 
 function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: Game[] }) {
-  const currencySymbol = game.priceDetails?.currencySymbol || '₹';
+  const currencySymbol = game.priceDetails?.currencySymbol || '$';
+
+  const defaultTab = game.tabSections?.[0]?.title.toLowerCase() || "overview";
 
   return (
     <div className="container mx-auto px-4 py-8 pt-24 md:pt-32">
@@ -338,7 +340,7 @@ function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: G
 
       <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
         <div className="lg:col-span-8">
-          <Tabs defaultValue={game.tabSections?.[0]?.title.toLowerCase() || "overview"} className="w-full">
+          <Tabs defaultValue={defaultTab} className="w-full">
             <TabsList className="border-b border-border rounded-none p-0 bg-transparent mb-6 justify-start">
               {(game.tabSections || [{ title: "Overview", contentKey: "media_plus_description" }]).map((tab) => (
                 <TabsTrigger
@@ -362,7 +364,7 @@ function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: G
                   </p>
                 )}
                  {game.description && (
-                  <Card className="shadow-none border-none bg-transparent p-0">
+                  <Card className="shadow-none border-none bg-transparent p-0 mt-4">
                     <CardContent className="p-0">
                       <p className="text-foreground/90 leading-relaxed whitespace-pre-line text-sm">
                         {game.description}
@@ -371,7 +373,7 @@ function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: G
                   </Card>
                 )}
                 {game.keyFeatures && game.keyFeatures.length > 0 && (
-                  <Card className="shadow-none border-none bg-transparent p-0">
+                  <Card className="shadow-none border-none bg-transparent p-0 mt-6">
                     <CardHeader className="p-0 mb-2">
                       <CardTitle className="text-xl font-semibold text-primary flex items-center">
                         <ListChecks className="mr-2 h-5 w-5" /> Key Features
@@ -388,19 +390,13 @@ function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: G
                 )}
               </AnimateOnScroll>
             </TabsContent>
+            
+            {game.tabSections?.find(tab => tab.title.toLowerCase() === 'add-ons') && (
+                <TabsContent value="add-ons">
+                  <GameEditionsSection editions={game.editions} />
+                </TabsContent>
+            )}
 
-            <TabsContent value="add-ons">
-               <GameEditionsSection editions={game.editions} />
-            </TabsContent>
-
-            <TabsContent value="achievements">
-              <Card className="shadow-none border-none bg-transparent">
-                <CardHeader className="p-0"><CardTitle>Achievements</CardTitle></CardHeader>
-                <CardContent className="p-0">
-                  <p className="text-muted-foreground mt-2">Content for Achievements will be displayed here. Update `games.json` to populate this section.</p>
-                </CardContent>
-              </Card>
-            </TabsContent>
           </Tabs>
         </div>
 
@@ -442,12 +438,6 @@ function GameDetailPageContent({ game, otherGames }: { game: Game; otherGames: G
                   <Link href={game.buyNowUrl || game.itchioPageUrl} target="_blank" rel="noopener noreferrer">
                     Buy Now
                   </Link>
-                </Button>
-                <Button variant="secondary" size="lg" className="w-full bg-muted hover:bg-muted/80 text-foreground py-3 text-lg font-semibold transition-all duration-150 ease-out hover:scale-105 shadow-sm">
-                  Add To Cart
-                </Button>
-                <Button variant="outline" size="lg" className="w-full border-muted hover:bg-muted/50 text-foreground py-3 text-lg font-semibold transition-all duration-150 ease-out hover:scale-105 shadow-sm">
-                  Add to Wishlist
                 </Button>
               </CardContent>
             </Card>
@@ -518,7 +508,7 @@ export default function GameDetailPage({ params: paramsPromise }: { params: Prom
     async function loadData() {
       const fetchedGame = await getGameById(gameId);
       if (!fetchedGame) {
-        setGame(null);
+        setGame(null); 
         return;
       }
       setGame(fetchedGame);
@@ -543,6 +533,7 @@ export default function GameDetailPage({ params: paramsPromise }: { params: Prom
 
 
 export function GameDetailPageLoadingFallback() {
+  const tabCount = 2; // Overview, Add-Ons
   return (
     <div className="container mx-auto px-4 py-8 pt-24 md:pt-32">
       <div className="mb-6">
@@ -556,7 +547,9 @@ export function GameDetailPageLoadingFallback() {
       <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
         <div className="lg:col-span-8">
           <div className="flex gap-4 border-b mb-6">
-            <Skeleton className="h-10 w-24" /> <Skeleton className="h-10 w-24" /> <Skeleton className="h-10 w-24" />
+            {[...Array(tabCount)].map((_, i) => (
+                 <Skeleton key={i} className="h-10 w-24" />
+            ))}
           </div>
           {/* Placeholder for TabsContent */}
           <div className="space-y-6">
@@ -574,7 +567,7 @@ export function GameDetailPageLoadingFallback() {
             <Skeleton className="h-4 w-full mb-1" />
             <Skeleton className="h-4 w-5/6" />
 
-            {/* Skeleton for Editions Section */}
+            {/* Skeleton for Editions Section (assuming 2 cards for loading) */}
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                 {[...Array(2)].map((_, i) => (
                   <Card key={i} className="flex flex-col">
@@ -607,8 +600,6 @@ export function GameDetailPageLoadingFallback() {
             </div>
             <Skeleton className="h-4 w-1/2 mb-4" />
             <Skeleton className="h-12 w-full mb-2" />
-            <Skeleton className="h-12 w-full mb-2" />
-            <Skeleton className="h-12 w-full" />
           </Card>
           <Card className="p-4">
              <Skeleton className="h-6 w-1/2 mb-3" />
@@ -631,3 +622,4 @@ export function GameDetailPageLoadingFallback() {
     </div>
   );
 }
+
