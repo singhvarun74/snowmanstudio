@@ -1,0 +1,61 @@
+
+[
+  {
+    "id": "game0",
+    "title": "Pixel Pioneers",
+    "imageUrl": "https://placehold.co/800x600.png",
+    "imageHint": "pixel art adventure",
+    "itchioEmbedUrl": null,
+    "itchioPageUrl": "https://yourusername.itch.io/pixel-pioneers",
+    "description": "Embark on a charming 8-bit adventure to save the kingdom. Explore vast lands, defeat quirky monsters, and discover hidden treasures. A retro RPG experience for modern heroes.",
+    "isFeatured": true
+  },
+  {
+    "id": "game1",
+    "title": "Echoes of the Void",
+    "imageUrl": "https://placehold.co/800x600.png",
+    "imageHint": "sci-fi horror space",
+    "itchioEmbedUrl": "https://itch.io/embed-upload/9639999?color=333333",
+    "itchioPageUrl": "https://snowmandev.itch.io/echoes-of-the-void-demo",
+    "description": "A narrative-driven horror game set on a desolate spaceship. Uncover the chilling truth behind the crew's disappearance. Features atmospheric sound design and psychological horror elements.",
+    "isFeatured": true
+  },
+  {
+    "id": "game2",
+    "title": "Frostfall Tactics",
+    "imageUrl": "https://placehold.co/800x600.png",
+    "imageHint": "fantasy strategy winter",
+    "itchioEmbedUrl": null,
+    "itchioPageUrl": "https://snowmandev.itch.io/frostfall-tactics-concept",
+    "description": "Lead your faction to victory in this turn-based strategy game set in a world consumed by an endless winter. Manage resources, build your army, and outsmart your opponents on a hex-grid battlefield.",
+    "isFeatured": true
+  },
+  {
+    "id": "game3",
+    "title": "Chromatic Cascade",
+    "imageUrl": "https://placehold.co/800x600.png",
+    "imageHint": "abstract puzzle colorful",
+    "itchioEmbedUrl": "https://itch.io/embed-upload/9640001?color=333333",
+    "itchioPageUrl": "https://snowmandev.itch.io/chromatic-cascade-lite",
+    "description": "A mesmerizing puzzle game where you manipulate streams of color to create beautiful patterns and solve increasingly complex challenges. Relaxing gameplay with a vibrant aesthetic.",
+    "isFeatured": false
+  },
+  {
+    "id": "game4",
+    "title": "The Last Snowdrift",
+    "imageUrl": "https://placehold.co/800x600.png",
+    "imageHint": "survival winter narrative",
+    "itchioPageUrl": "https://yourusername.itch.io/the-last-snowdrift",
+    "description": "A short, atmospheric survival game where you must keep the last ember alive in a frozen, post-apocalyptic world. Scavenge for resources and make tough choices.",
+    "isFeatured": true
+  },
+  {
+    "id": "game5",
+    "title": "Sprite Knight",
+    "imageUrl": "https://placehold.co/800x600.png",
+    "imageHint": "platformer retro knight",
+    "itchioPageUrl": "https://yourusername.itch.io/sprite-knight",
+    "description": "A classic 2D platformer with tight controls and challenging levels. Play as a brave knight on a quest to rescue the princess from an evil sorcerer.",
+    "isFeatured": false
+  }
+]
