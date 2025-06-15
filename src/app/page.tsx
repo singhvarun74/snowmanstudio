@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import AnimateOnScroll from '@/components/motion/animate-on-scroll';
 import FeaturedGames from '@/components/sections/home/featured-games';
 import PageTitle from '@/components/ui/page-title';
+import { Instagram, Youtube } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -13,9 +14,9 @@ export default function HomePage() {
       <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="\snowman-homepage.png" // Changed to local path
-            alt="Snowman Studio hero image with snowman"
-            data-ai-hint="snowman horror"
+            src="/snowman-homepage.png" 
+            alt="Snowman Studio homepage hero image featuring a snowman"
+            data-ai-hint="snowman homepage"
             fill
             style={{objectFit:"cover"}}
             quality={85}
@@ -28,7 +29,6 @@ export default function HomePage() {
           className="relative z-10 p-4"
           delay="delay-200ms"
         >
-          {/* Headline and tagline removed as per request */}
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-opacity-80 hover:scale-105 transition-transform duration-150 ease-out shadow-lg hover:shadow-xl px-10 py-3 text-lg font-semibold">
             <Link href="/games">Explore Our Worlds</Link>
           </Button>
@@ -58,17 +58,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Latest News Teaser */}
+      {/* Latest Buzz Section - Updated */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 text-center">
           <PageTitle title="Latest Buzz" />
            <AnimateOnScroll>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
-              Stay up to date with our latest announcements, game updates, and behind-the-scenes peeks.
+              Stay connected with us on social media for the latest updates, behind-the-scenes content, and community interactions.
             </p>
-            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-opacity-80 hover:scale-105 transition-transform duration-150 ease-out shadow-lg hover:shadow-xl">
-              <Link href="/news">Read All News</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Button asChild size="lg" className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white hover:opacity-90 hover:scale-105 transition-all duration-150 ease-out shadow-lg hover:shadow-xl">
+                <Link href="https://www.instagram.com/thesnowmanstudio/" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="mr-2 h-5 w-5" />
+                  Follow on Instagram
+                </Link>
+              </Button>
+              <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white hover:scale-105 transition-transform duration-150 ease-out shadow-lg hover:shadow-xl">
+                <Link href="https://www.youtube.com/@thesnowmanstudio" target="_blank" rel="noopener noreferrer">
+                  <Youtube className="mr-2 h-5 w-5" />
+                  Subscribe on YouTube
+                </Link>
+              </Button>
+            </div>
           </AnimateOnScroll>
         </div>
       </section>

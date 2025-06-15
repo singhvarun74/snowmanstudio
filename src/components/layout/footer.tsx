@@ -22,7 +22,6 @@ type NewsletterFormValues = z.infer<typeof NewsletterSchema>;
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/games', label: 'Games' },
-  { href: '/news', label: 'News' },
   { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact' },
 ];
