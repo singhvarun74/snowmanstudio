@@ -14,9 +14,8 @@ const Logo = ({ className, width = 150, height = 50, ...rest }: LogoProps) => (
   <Image
     // Replace this placeholder with the actual path to your logo image in the /public directory
     // For example: src="/snowman-logo.png"
-    src={`https://placehold.co/${width}x${height}.png`}
+    src="/logo.png"
     alt="Snowman Studio Logo"
-    data-ai-hint="snowman studio logo" // Used to indicate this is a placeholder for an AI-assisted replacement
     width={width} // Intrinsic width of the logo image
     height={height} // Intrinsic height of the logo image
     className={className} // Tailwind classes for display size control (e.g., h-10 w-auto)
