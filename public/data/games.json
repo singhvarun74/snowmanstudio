@@ -3,136 +3,201 @@
   {
     "id": "arctic-adventure",
     "title": "Arctic Adventure",
-    "imageUrl": "/images/games/arctic-adventure.png",
-    "imageHint": "icy platformer game",
-    "itchioEmbedUrl": "https://itch.io/embed-upload/9778745?color=212121",
-    "itchioPageUrl": "https://thesnowmanstudio.itch.io/arctic-adventure",
-    "description": "Embark on a thrilling journey through frozen tundras and icy caverns in Arctic Adventure! Help a brave snowman find his way home, overcoming challenging platforms, mischievous snow sprites, and the biting cold. Discover hidden paths and collect warm scarves to keep your spirits high.\n\nThis charming platformer combines classic gameplay with a heartwarming story, set against a beautifully crafted winter wonderland. Are you ready to face the chill?",
+    "subtitle": "Deluxe Frostbite Edition",
     "isFeatured": true,
     "showInFeaturedGrid": true,
-    "shortDescription": "A chilly platformer about a snowman's journey home.",
-    "heroTagline": "Brave the Frost, Find Your Way Home!",
-    "genres": ["Platformer", "Adventure", "Indie", "Cozy"],
-    "platforms": ["Web", "Windows", "MacOS", "Linux"],
-    "releaseDate": "2023-12-15",
+    "heroTagline": "Embark on a Frostbitten Journey!",
+    "itchioEmbedUrl": null,
+    "itchioPageUrl": "https://genkistudio.itch.io/arctic-adventure",
+    "buyNowUrl": "https://genkistudio.itch.io/arctic-adventure",
+    "logoUrl": "/images/logos/arctic-adventure-logo.png",
+    "shortDescription": "A thrilling survival game set in the harsh, icy wilderness.",
+    "shortDescriptionUnderGallery": "Survive the relentless cold, build shelters, and uncover the secrets of a lost polar expedition. Every choice matters in this unforgiving landscape.",
+    "description": "Arctic Adventure challenges players to endure the extreme conditions of the Arctic. Scavenge for resources, craft essential tools, manage your warmth and hunger, and navigate treacherous terrains. Face off against fierce wildlife and the biting cold itself. Will you conquer the Arctic, or will it claim you?\n\nExplore vast, procedurally generated ice floes, frozen caves, and abandoned research stations. The game features a dynamic weather system that directly impacts gameplay, forcing you to adapt your strategies on the fly. Unravel a compelling storyline through journal entries and environmental clues left by a previous expedition that mysteriously vanished.",
+    "genres": ["Survival", "Adventure", "Open World"],
+    "platforms": ["PC", "Mac", "Linux"],
+    "releaseDate": "2024-03-15",
+    "rating": 4.7,
+    "ratingCount": 235,
+    "customTags": [
+      { "text": "Challenging Survival", "icon": "Flame", "iconColor": "text-orange-400" },
+      { "text": "Atmospheric Exploration", "icon": "MountainSnow", "iconColor": "text-blue-300" }
+    ],
+    "priceDetails": {
+      "currencySymbol": "₹",
+      "currentPrice": "120.40",
+      "originalPrice": "602.00",
+      "discountPercentage": "80%",
+      "baseGameTag": "Base Game",
+      "saleEndDate": "Sale ends 6/19/2025 at 11:00 AM"
+    },
     "keyFeatures": [
-      "Challenging yet accessible platforming levels across frosty landscapes.",
-      "Beautifully crafted pixel art visuals with a charming aesthetic.",
-      "A heartwarming storyline about courage and friendship.",
-      "Collectibles and hidden secrets to discover in each level.",
-      "Responsive controls optimized for a smooth gameplay experience."
+      "Intense Arctic survival mechanics.",
+      "Vast procedurally generated world.",
+      "Dynamic weather and day/night cycle.",
+      "Compelling mystery to uncover.",
+      "Crafting and base building."
     ],
-    "galleryImages": [
-      { "src": "https://placehold.co/600x400.png", "alt": "Arctic Adventure Gameplay Screenshot 1", "imageHint": "gameplay level ice" },
-      { "src": "https://placehold.co/600x400.png", "alt": "Arctic Adventure Character Art", "imageHint": "character snowman art" },
-      { "src": "https://placehold.co/600x400.png", "alt": "Arctic Adventure World Map", "imageHint": "game world map" },
-      { "src": "https://placehold.co/600x400.png", "alt": "Arctic Adventure Title Screen", "imageHint": "title screen winter" }
+    "media": [
+      {
+        "id": "video_trailer_aa",
+        "type": "video",
+        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ", 
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Trailer+Thumb",
+        "alt": "Arctic Adventure Official Trailer",
+        "imageHint": "game trailer"
+      },
+      {
+        "id": "image_gameplay1_aa",
+        "type": "image",
+        "src": "https://placehold.co/1280x720.png?text=Arctic+Gameplay+1",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Gameplay+1+Thumb",
+        "alt": "Arctic Adventure Gameplay Screenshot 1",
+        "imageHint": "arctic landscape gameplay"
+      },
+      {
+        "id": "image_gameplay2_aa",
+        "type": "image",
+        "src": "https://placehold.co/1280x720.png?text=Arctic+Gameplay+2",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Gameplay+2+Thumb",
+        "alt": "Arctic Adventure Gameplay Screenshot 2",
+        "imageHint": "ice cave exploration"
+      },
+      {
+        "id": "image_character_aa",
+        "type": "image",
+        "src": "https://placehold.co/1280x720.png?text=Arctic+Character",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Character+Thumb",
+        "alt": "Arctic Adventure Character",
+        "imageHint": "survival character gear"
+      },
+      {
+        "id": "image_base_aa",
+        "type": "image",
+        "src": "https://placehold.co/1280x720.png?text=Arctic+Base",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Base+Thumb",
+        "alt": "Arctic Adventure Base Building",
+        "imageHint": "snow shelter interior"
+      }
     ],
-    "trailerUrl": "https://www.youtube.com/embed/P3X51vHHK8Y"
+    "tabSections": [
+      { "title": "Overview", "contentKey": "media_plus_description" },
+      { "title": "Add-Ons", "contentKey": "addOnsContentPlaceholder" },
+      { "title": "Achievements", "contentKey": "achievementsContentPlaceholder" }
+    ],
+    "developerNotes": "We poured our hearts into creating a truly challenging and immersive survival experience. We hope you enjoy discovering the secrets of the Arctic!"
   },
   {
-    "id": "frosty-fortress",
-    "title": "Frosty Fortress",
-    "imageUrl": "/images/games/frosty-fortress.png",
-    "imageHint": "tower defense snow",
-    "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://thesnowmanstudio.itch.io/frosty-fortress",
-    "description": "Defend your snow castle from waves of mischievous ice sprites in Frosty Fortress! Strategically place snowball cannons, ice walls, and friendly yeti defenders to protect your kingdom. Unlock powerful upgrades and special abilities as you progress through increasingly challenging levels. Winter is coming, and so are your foes!",
+    "id": "pixel-pioneer",
+    "title": "Pixel Pioneer",
     "isFeatured": true,
     "showInFeaturedGrid": true,
-    "shortDescription": "A strategic tower defense game set in a winter wonderland.",
-    "heroTagline": "Defend Your Castle, Command the Snow!",
-    "genres": ["Tower Defense", "Strategy", "Indie"],
-    "platforms": ["Web", "Mobile"],
-    "releaseDate": "2024-02-20",
-    "keyFeatures": [
-      "Engaging tower defense gameplay with unique winter-themed towers.",
-      "Multiple enemy types with different abilities and weaknesses.",
-      "Unlockable upgrades and special powers for your defenses.",
-      "Dozens of challenging levels with increasing difficulty.",
-      "Vibrant graphics and a catchy soundtrack."
-    ],
-    "galleryImages": [
-      { "src": "https://placehold.co/600x400.png", "alt": "Frosty Fortress Gameplay", "imageHint": "tower defense map" },
-      { "src": "https://placehold.co/600x400.png", "alt": "Frosty Fortress Towers", "imageHint": "game towers strategy" }
-    ],
-    "trailerUrl": null
-  },
-  {
-    "id": "snowball-showdown",
-    "title": "Snowball Showdown",
-    "imageUrl": "/images/games/snowball-showdown.png",
-    "imageHint": "multiplayer snowball fight",
+    "heroTagline": "Craft Your Legacy, One Block at a Time!",
     "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://thesnowmanstudio.itch.io/snowball-showdown",
-    "description": "Gather your friends for an epic Snowball Showdown! This fast-paced multiplayer arena game pits up to 4 players against each other in a frantic flurry of snowballs. Utilize power-ups, master trick shots, and become the last snowman standing. Perfect for parties and friendly rivalries!",
-    "isFeatured": false,
-    "showInFeaturedGrid": true,
-    "shortDescription": "A fast-paced multiplayer snowball fighting game.",
-    "heroTagline": "The Ultimate Snowball Fight!",
-    "genres": ["Multiplayer", "Arena", "Action", "Party Game"],
+    "itchioPageUrl": "https://genkistudio.itch.io/pixel-pioneer",
+    "logoUrl": "/images/logos/pixel-pioneer-logo.png",
+    "description": "Pixel Pioneer is a charming retro-style farming and adventure game. Cultivate your land, raise adorable pixel animals, explore mysterious caves, and befriend quirky villagers. With its relaxing gameplay and endless customization options, Pixel Pioneer is the perfect escape to a simpler, blockier world.",
+    "shortDescription": "A relaxing retro farming and adventure sim.",
+    "media": [
+      {
+        "id": "main_pp",
+        "type": "image",
+        "src": "https://placehold.co/600x400.png?text=Pixel+Pioneer+Main",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Pixel+Pioneer+Thumb",
+        "alt": "Pixel Pioneer Gameplay",
+        "imageHint": "pixel art farm"
+      }
+    ],
+    "genres": ["Farming Sim", "RPG", "Retro"],
     "platforms": ["PC", "Web"],
-    "releaseDate": "2023-11-01",
-    "keyFeatures": [
-      "Local and Online Multiplayer for up to 4 players.",
-      "Fast-paced, chaotic snowball combat.",
-      "Variety of power-ups to turn the tide of battle.",
-      "Multiple arenas with unique layouts and hazards.",
-      "Customizable snowman characters."
-    ],
-    "galleryImages": [],
-    "trailerUrl": null
+    "releaseDate": "2023-10-20"
   },
   {
-    "id": "penguin-puzzle-plunge",
-    "title": "Penguin Puzzle Plunge",
-    "imageUrl": "/images/games/penguin-puzzle-plunge.png",
-    "imageHint": "penguin puzzle game",
-    "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://thesnowmanstudio.itch.io/penguin-puzzle-plunge",
-    "description": "Help a clumsy penguin navigate treacherous icy puzzles in Penguin Puzzle Plunge! Slide blocks, avoid pitfalls, and collect tasty fish on your way to the finish line. With hundreds of brain-teasing levels, this game will keep you chilled and challenged for hours.",
+    "id": "cosmic-drifter",
+    "title": "Cosmic Drifter",
     "isFeatured": true,
-    "showInFeaturedGrid": false,
-    "shortDescription": "A charming and challenging icy block puzzle game.",
-    "heroTagline": "Slide, Solve, and Snack!",
-    "genres": ["Puzzle", "Logic", "Casual"],
-    "platforms": ["Mobile", "Web"],
-    "releaseDate": "2024-01-10",
-    "keyFeatures": [
-      "Hundreds of handcrafted puzzle levels.",
-      "Intuitive sliding block mechanics.",
-      "Adorable penguin character and charming visuals.",
-      "Increasing difficulty to test your brainpower.",
-      "Relaxing soundtrack."
+    "showInFeaturedGrid": true,
+    "heroTagline": "Navigate the Stars, Unravel the Cosmos.",
+    "itchioEmbedUrl": null,
+    "itchioPageUrl": "https://genkistudio.itch.io/cosmic-drifter",
+    "logoUrl": "/images/logos/cosmic-drifter-logo.png",
+    "description": "Cosmic Drifter is a visually stunning space exploration game with a focus on narrative and discovery. Pilot your ship through breathtaking nebulas, encounter strange alien civilizations, and piece together the remnants of a long-lost galactic empire. Features a non-linear story and meaningful choices.",
+    "shortDescription": "A narrative-driven space exploration adventure.",
+     "media": [
+      {
+        "id": "main_cd",
+        "type": "image",
+        "src": "https://placehold.co/600x400.png?text=Cosmic+Drifter+Main",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Cosmic+Drifter+Thumb",
+        "alt": "Cosmic Drifter Gameplay",
+        "imageHint": "spaceship nebula"
+      }
     ],
-    "galleryImages": [
-      { "src": "https://placehold.co/600x400.png", "alt": "Penguin Puzzle Plunge Gameplay", "imageHint": "puzzle game mobile" }
-    ],
-    "trailerUrl": null
+    "genres": ["Space Sim", "Adventure", "Sci-Fi"],
+    "platforms": ["PC", "Xbox"],
+    "releaseDate": "2024-01-05"
   },
   {
-    "id": "yeti-yarns",
-    "title": "Yeti Yarns",
-    "imageUrl": "/images/games/yeti-yarns.png",
-    "imageHint": "storytelling yeti game",
-    "itchioEmbedUrl": null,
-    "itchioPageUrl": "https://thesnowmanstudio.itch.io/yeti-yarns",
-    "description": "Unravel the enchanting tales of the mountains in Yeti Yarns, an interactive storybook adventure. Follow the life of a gentle yeti, make choices that shape his journey, and discover the secrets hidden within the snow-capped peaks. A heartwarming narrative experience for all ages.",
+    "id": "placeholder-game-1",
+    "title": "Chrono Weaver",
     "isFeatured": false,
     "showInFeaturedGrid": true,
-    "shortDescription": "An interactive storybook adventure about a gentle yeti.",
-    "heroTagline": "Weave Your Own Mountain Tale.",
-    "genres": ["Interactive Fiction", "Story Rich", "Adventure", "Casual"],
-    "platforms": ["PC", "Tablet"],
-    "releaseDate": "2023-09-05",
-    "keyFeatures": [
-      "Branching narrative with multiple endings.",
-      "Beautiful hand-drawn illustrations.",
-      "Choice-driven gameplay that impacts the story.",
-      "A relaxing and immersive experience.",
-      "Original soundtrack."
+    "itchioPageUrl": "https://genkistudio.itch.io/chrono-weaver",
+    "logoUrl": "/images/logos/chrono-weaver-logo.png",
+    "description": "A time-bending puzzle platformer where you manipulate past and future versions of yourself to overcome obstacles.",
+     "media": [
+      {
+        "id": "main_cw",
+        "type": "image",
+        "src": "https://placehold.co/600x400.png?text=Chrono+Weaver+Main",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Chrono+Weaver+Thumb",
+        "alt": "Chrono Weaver Gameplay",
+        "imageHint": "puzzle platformer time"
+      }
     ],
-    "galleryImages": [],
-    "trailerUrl": null
+    "genres": ["Puzzle", "Platformer"],
+    "platforms": ["PC", "Switch"]
+  },
+  {
+    "id": "placeholder-game-2",
+    "title": "Deep Sea Tycoon",
+    "isFeatured": false,
+    "showInFeaturedGrid": true,
+    "itchioPageUrl": "https://genkistudio.itch.io/deep-sea-tycoon",
+    "logoUrl": "/images/logos/deep-sea-tycoon-logo.png",
+    "description": "Manage an underwater research facility, discover new marine species, and balance your budget in this challenging tycoon game.",
+    "media": [
+      {
+        "id": "main_dst",
+        "type": "image",
+        "src": "https://placehold.co/600x400.png?text=Deep+Sea+Tycoon",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Deep+Sea+Thumb",
+        "alt": "Deep Sea Tycoon Gameplay",
+        "imageHint": "underwater base builder"
+      }
+    ],
+    "genres": ["Tycoon", "Simulation"],
+    "platforms": ["PC"]
+  },
+  {
+    "id": "placeholder-game-3",
+    "title": "Rhythm Runner",
+    "isFeatured": false,
+    "showInFeaturedGrid": false,
+    "itchioPageUrl": "https://genkistudio.itch.io/rhythm-runner",
+    "logoUrl": "/images/logos/rhythm-runner-logo.png",
+    "description": "A fast-paced rhythm game where your actions sync with an electrifying soundtrack. Stay on beat to survive!",
+    "media": [
+      {
+        "id": "main_rr",
+        "type": "image",
+        "src": "https://placehold.co/600x400.png?text=Rhythm+Runner+Main",
+        "thumbnailSrc": "https://placehold.co/300x169.png?text=Rhythm+Runner+Thumb",
+        "alt": "Rhythm Runner Gameplay",
+        "imageHint": "music rhythm game"
+      }
+    ],
+    "genres": ["Rhythm", "Action"],
+    "platforms": ["PC", "Mobile", "Web"]
   }
 ]
