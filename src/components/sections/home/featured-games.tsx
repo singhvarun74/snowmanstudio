@@ -2,21 +2,16 @@
 "use client";
 
 import Image from 'next/image';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import Link from 'next/link'; 
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
 import AnimateOnScroll from '@/components/motion/animate-on-scroll';
-import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
-interface Game {
+// Export Game interface for reusability
+export interface Game {
   id: string;
   title: string;
   imageUrl: string;
@@ -24,8 +19,18 @@ interface Game {
   itchioEmbedUrl?: string | null;
   itchioPageUrl: string;
   description: string;
-  isFeatured: boolean; // Still present in data, used by HeroGamesCarousel
-  showInFeaturedGrid: boolean; // New property to control inclusion here
+  isFeatured: boolean;
+  showInFeaturedGrid: boolean;
+  shortDescription?: string;
+  heroTagline?: string;
+  // New fields for game detail page
+  genres?: string[];
+  platforms?: string[];
+  releaseDate?: string;
+  keyFeatures?: string[];
+  galleryImages?: Array<{ src: string; alt: string; imageHint: string }>;
+  trailerUrl?: string;
+  developerNotes?: string;
 }
 
 interface FeaturedGamesProps {
@@ -33,17 +38,48 @@ interface FeaturedGamesProps {
 }
 
 const GAMES_PER_CAROUSEL_VIEW = 3;
-const TRANSITION_DURATION_MS = 500; // For CSS transition
+const TRANSITION_DURATION_MS = 500;
+
+// Export GameCard for reusability
+export function GameCard({ game }: { game: Game }) {
+  return (
+    <Link
+      href={`/games/${game.id}`}
+      className="group relative rounded-lg overflow-hidden shadow-xl cursor-pointer aspect-[4/3] h-full flex flex-col"
+      aria-label={`View details for ${game.title}`}
+    >
+      <div className="relative w-full h-full">
+        <Image
+          src={game.imageUrl}
+          alt={game.title}
+          data-ai-hint={game.imageHint}
+          fill
+          style={{objectFit:"cover"}}
+          className="transition-transform duration-300 group-hover:scale-110"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      </div>
+      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-300 ease-in-out" />
+      <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-snow-white
+                      opacity-0 group-hover:opacity-100
+                      transform translate-y-5 group-hover:translate-y-0
+                      transition-all duration-300 ease-in-out">
+        <h3 className="font-headline text-2xl font-bold mb-2 text-shadow">{game.title}</h3>
+        <Button variant="outline" size="sm" className="bg-transparent border-snow-white text-snow-white hover:bg-snow-white hover:text-charcoal pointer-events-none">
+          View Details
+        </Button>
+      </div>
+    </Link>
+  );
+}
+
 
 export default function FeaturedGames({ showAllGames = false }: FeaturedGamesProps) {
   const [allGamesData, setAllGamesData] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [gamesForDisplay, setGamesForDisplay] = useState<Game[]>([]); // Renamed from featuredGamesList
+  const [gamesForDisplay, setGamesForDisplay] = useState<Game[]>([]);
   const [carouselCurrentIndex, setCarouselCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -58,10 +94,10 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
         const jsonData: Game[] = await response.json();
         setAllGamesData(jsonData);
 
-        if (!showAllGames) { // On homepage: filter by showInFeaturedGrid for the carousel/grid
+        if (!showAllGames) {
           const gridGames = jsonData.filter(game => game.showInFeaturedGrid);
           setGamesForDisplay(gridGames);
-        } else { // On /games page: set all games for display in a simple grid
+        } else {
           setGamesForDisplay(jsonData);
         }
       } catch (err) {
@@ -86,16 +122,11 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
       const maxIndex = gamesForDisplay.length - GAMES_PER_CAROUSEL_VIEW;
       if (direction === 'next') {
         newIndex = Math.min(prev + 1, maxIndex);
-      } else { // prev
+      } else {
         newIndex = Math.max(prev - 1, 0);
       }
       return newIndex;
     });
-  };
-
-  const handleCardClick = (game: Game) => {
-    setSelectedGame(game);
-    setIsModalOpen(true);
   };
 
   if (isLoading) {
@@ -113,31 +144,26 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
     return <div className="text-center text-destructive bg-destructive/10 p-4 rounded-md">Error loading games: {error}</div>;
   }
 
-  // For /games page (shows all games in a grid) or if !showAllGames and gamesForDisplay is empty
   if (showAllGames || (gamesForDisplay.length === 0 && !isLoading)) {
      if (gamesForDisplay.length === 0) {
       return <div className="text-center text-lg text-muted-foreground py-8">No games to display at the moment.</div>;
     }
     return (
-      <>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {gamesForDisplay.map((game, index) => ( // Use gamesForDisplay here
-            <AnimateOnScroll
-              key={game.id}
-              animationClass="animate-slide-up-fade-in"
-              delay={`delay-${index * 100}ms`}
-              className="h-full"
-            >
-              <GameCard game={game} onClick={() => handleCardClick(game)} />
-            </AnimateOnScroll>
-          ))}
-        </div>
-        <GameModal selectedGame={selectedGame} isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
-      </>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {gamesForDisplay.map((game, index) => (
+          <AnimateOnScroll
+            key={game.id}
+            animationClass="animate-slide-up-fade-in"
+            delay={`delay-${index * 100}ms`}
+            className="h-full"
+          >
+            <GameCard game={game} />
+          </AnimateOnScroll>
+        ))}
+      </div>
     );
   }
   
-  // This section is for the homepage "Featured Games" carousel/grid (when !showAllGames and gamesForDisplay has items)
   const canNavigatePrev = carouselCurrentIndex > 0;
   const canNavigateNext = carouselCurrentIndex < gamesForDisplay.length - GAMES_PER_CAROUSEL_VIEW;
   const showNavigationArrows = gamesForDisplay.length > GAMES_PER_CAROUSEL_VIEW;
@@ -177,7 +203,7 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
               transition: `transform ${TRANSITION_DURATION_MS}ms ease-in-out`,
             }}
           >
-            {gamesForDisplay.map((game) => ( // Use gamesForDisplay here
+            {gamesForDisplay.map((game) => (
               <div
                 key={game.id}
                 className="flex-shrink-0 px-4" 
@@ -185,96 +211,13 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
                   flexBasis: `calc(100% / ${GAMES_PER_CAROUSEL_VIEW})`,
                 }}
               >
-                <GameCard game={game} onClick={() => handleCardClick(game)} />
+                <GameCard game={game} />
               </div>
             ))}
           </div>
         </div>
       </div>
-      <GameModal selectedGame={selectedGame} isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
     </AnimateOnScroll>
   );
 }
 
-interface GameCardProps {
-  game: Game;
-  onClick: () => void;
-}
-function GameCard({ game, onClick }: GameCardProps) {
-  return (
-    <div
-      onClick={onClick}
-      className="group relative rounded-lg overflow-hidden shadow-xl cursor-pointer aspect-[4/3] h-full flex flex-col"
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick();}}
-      aria-label={`View details for ${game.title}`}
-    >
-      <div className="relative w-full h-full">
-        <Image
-          src={game.imageUrl}
-          alt={game.title}
-          data-ai-hint={game.imageHint}
-          fill
-          style={{objectFit:"cover"}}
-          className="transition-transform duration-300 group-hover:scale-110"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </div>
-      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-300 ease-in-out" />
-      <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-snow-white
-                      opacity-0 group-hover:opacity-100
-                      transform translate-y-5 group-hover:translate-y-0
-                      transition-all duration-300 ease-in-out">
-        <h3 className="font-headline text-2xl font-bold mb-2 text-shadow">{game.title}</h3>
-        <Button variant="outline" size="sm" className="bg-transparent border-snow-white text-snow-white hover:bg-snow-white hover:text-charcoal">
-          View Details
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-interface GameModalProps {
-  selectedGame: Game | null;
-  isOpen: boolean;
-  onOpenChange: (isOpen: boolean) => void;
-}
-function GameModal({ selectedGame, isOpen, onOpenChange }: GameModalProps) {
-  if (!selectedGame) return null;
-
-  return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[90vw] md:max-w-[70vw] lg:max-w-[800px] p-0 max-h-[90vh] flex flex-col">
-        <DialogHeader className="p-6 pb-2">
-          <DialogTitle className="font-headline text-3xl text-primary">{selectedGame.title}</DialogTitle>
-        </DialogHeader>
-        <DialogDescription className="p-6 pt-0 overflow-y-auto flex-grow">
-          {selectedGame.itchioEmbedUrl ? (
-            <div className="aspect-video">
-              <iframe
-                src={selectedGame.itchioEmbedUrl}
-                frameBorder="0"
-                className="w-full h-full rounded-md"
-                allowFullScreen
-                title={`${selectedGame.title} Itch.io Embed`}
-              />
-            </div>
-          ) : (
-            <>
-              <div className="relative w-full aspect-video mb-4 rounded-md overflow-hidden">
-                 <Image src={selectedGame.imageUrl} alt={selectedGame.title} data-ai-hint={selectedGame.imageHint} fill style={{objectFit:"cover"}} />
-              </div>
-              <p className="mb-6 text-base text-foreground leading-relaxed">{selectedGame.description}</p>
-              <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-opacity-80 py-3 text-lg">
-                <a href={selectedGame.itchioPageUrl} target="_blank" rel="noopener noreferrer">
-                  Play on Itch.io <ExternalLink className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
-            </>
-          )}
-        </DialogDescription>
-      </DialogContent>
-    </Dialog>
-  );
-}

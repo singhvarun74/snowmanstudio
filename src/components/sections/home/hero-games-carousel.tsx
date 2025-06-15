@@ -9,17 +9,28 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 
+// Re-use Game interface, assuming it might be moved to a shared types file later
+// For now, ensure it matches the one in featured-games.tsx if fields are added/changed.
 interface Game {
   id: string;
   title: string;
   imageUrl: string;
   imageHint: string;
-  itchioPageUrl: string;
+  itchioPageUrl: string; 
   description: string;
   isFeatured: boolean;
-  showInFeaturedGrid?: boolean; // Added for interface consistency
+  showInFeaturedGrid?: boolean;
   shortDescription?: string;
   heroTagline?: string;
+  itchioEmbedUrl?: string | null;
+  // New fields (optional)
+  genres?: string[];
+  platforms?: string[];
+  releaseDate?: string;
+  keyFeatures?: string[];
+  galleryImages?: Array<{ src: string; alt: string; imageHint: string; }>;
+  trailerUrl?: string;
+  developerNotes?: string;
 }
 
 const AUTO_CYCLE_INTERVAL = 7000; // 7 seconds
@@ -67,8 +78,8 @@ export default function HeroGamesCarousel() {
 
   const selectGame = (index: number) => {
     setCurrentIndex(index);
-    setIsPaused(true); // Pause auto-cycle on manual selection
-    setTimeout(() => setIsPaused(false), AUTO_CYCLE_INTERVAL * 2); // Resume after a while
+    setIsPaused(true); 
+    setTimeout(() => setIsPaused(false), AUTO_CYCLE_INTERVAL * 2); 
   };
   
   const togglePause = () => {
@@ -124,7 +135,6 @@ export default function HeroGamesCarousel() {
   return (
     <section className="relative w-full bg-card text-card-foreground py-8 md:py-12 lg:py-16 min-h-[70vh] md:min-h-[80vh] flex flex-col justify-center overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Main Featured Game */}
         <div className="grid md:grid-cols-10 gap-6 md:gap-8 items-center mb-8">
           <div className="md:col-span-4 flex flex-col justify-center space-y-3 md:space-y-5 order-2 md:order-1">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold">{activeGame.title}</p>
@@ -132,41 +142,41 @@ export default function HeroGamesCarousel() {
               {activeGame.heroTagline || `Experience ${activeGame.title}`}
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-md">
-              {activeGame.description}
+              {activeGame.shortDescription || (activeGame.description ? activeGame.description.substring(0, 150) + "..." : "")}
             </p>
             <div className="pt-2">
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 transition-transform duration-150 ease-out hover:scale-105 shadow-lg">
-                <Link href={activeGame.itchioPageUrl} target="_blank" rel="noopener noreferrer">
-                  Play Now
+                <Link href={`/games/${activeGame.id}`}> 
+                  View Game
                 </Link>
               </Button>
             </div>
           </div>
           <div className="md:col-span-6 order-1 md:order-2 group relative">
-             <div className="relative aspect-video rounded-lg overflow-hidden shadow-2xl">
-              {games.map((game, idx) => (
-                  <Image
-                    key={game.id}
-                    src={game.imageUrl}
-                    alt={game.title}
-                    data-ai-hint={game.imageHint || "gameplay scene"}
-                    fill
-                    style={{objectFit:"cover"}}
-                    quality={85}
-                    priority={idx === currentIndex}
-                    className={cn(
-                      "transition-opacity duration-1000 ease-in-out absolute inset-0",
-                      idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-                    )}
-                  />
-              ))}
-            </div>
+             <Link href={`/games/${activeGame.id}`} className="relative aspect-video rounded-lg overflow-hidden shadow-2xl block">
+                {games.map((game, idx) => (
+                    <Image
+                        key={game.id}
+                        src={game.imageUrl}
+                        alt={game.title}
+                        data-ai-hint={game.imageHint || "gameplay scene"}
+                        fill
+                        style={{objectFit:"cover"}}
+                        quality={85}
+                        priority={idx === currentIndex}
+                        className={cn(
+                        "transition-opacity duration-1000 ease-in-out absolute inset-0",
+                        idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                        )}
+                    />
+                ))}
+            </Link>
              {games.length > 1 && (
               <>
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={handlePrev}
+                  onClick={(e) => { e.stopPropagation(); handlePrev(); }}
                   className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-background/50 hover:bg-background/80 text-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   aria-label="Previous Game"
                 >
@@ -175,7 +185,7 @@ export default function HeroGamesCarousel() {
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={handleNext}
+                  onClick={(e) => { e.stopPropagation(); handleNext(); }}
                   className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-background/50 hover:bg-background/80 text-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   aria-label="Next Game"
                 >
@@ -186,16 +196,15 @@ export default function HeroGamesCarousel() {
           </div>
         </div>
 
-        {/* Thumbnails Strip */}
         {games.length > 1 && (
           <div className="relative">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
               {games.map((game, idx) => (
-                <button
+                <button // Changed Link to button for selectGame behavior, navigation happens via Hero image/button
                   key={game.id}
-                  onClick={() => selectGame(idx)}
+                  onClick={() => selectGame(idx)} 
                   className={cn(
-                    "relative aspect-video rounded-md overflow-hidden group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card transition-all duration-300 ease-in-out",
+                    "relative aspect-video rounded-md overflow-hidden group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card transition-all duration-300 ease-in-out cursor-pointer",
                     idx === currentIndex ? "ring-2 ring-primary ring-offset-2 ring-offset-card scale-105" : "opacity-70 hover:opacity-100 hover:scale-105"
                   )}
                   aria-label={`Select game: ${game.title}`}
@@ -210,12 +219,13 @@ export default function HeroGamesCarousel() {
                     className="transition-transform duration-300 ease-in-out group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-                  {idx === currentIndex && (
+                  {idx === currentIndex && !isPaused && (
                      <div className="absolute bottom-1 left-1 right-1 p-1 ">
                         <div className="w-full h-1 bg-white/30 rounded-full overflow-hidden">
                            <div 
                             className="h-full bg-primary"
-                            style={{ animation: `progress ${AUTO_CYCLE_INTERVAL}ms linear infinite`}}
+                            style={{ animation: `progress ${AUTO_CYCLE_INTERVAL}ms linear`}} 
+                            onAnimationEnd={handleNext} 
                             ></div>
                         </div>
                     </div>
@@ -247,3 +257,4 @@ export default function HeroGamesCarousel() {
     </section>
   );
 }
+
