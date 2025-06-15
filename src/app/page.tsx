@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -12,9 +13,9 @@ export default function HomePage() {
       <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="snowman-home.png"
-            alt="Flagship game background"
-            data-ai-hint="game landscape"
+            src="/snomwman-homepage.png" // Changed to local path
+            alt="Snowman Studio hero image with snowman"
+            data-ai-hint="snowman horror"
             fill
             style={{objectFit:"cover"}}
             quality={85}
@@ -27,14 +28,7 @@ export default function HomePage() {
           className="relative z-10 p-4"
           delay="delay-200ms"
         >
-          <h1 
-            className="font-headline text-5xl md:text-7xl lg:text-8xl font-black text-snow-white mb-4 text-shadow-DEFAULT"
-          >
-            Passion Meets Play
-          </h1>
-          <p className="font-headline text-2xl md:text-3xl text-accent mb-8">
-            Snowman Studio
-          </p>
+          {/* Headline and tagline removed as per request */}
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-opacity-80 hover:scale-105 transition-transform duration-150 ease-out shadow-lg hover:shadow-xl px-10 py-3 text-lg font-semibold">
             <Link href="/games">Explore Our Worlds</Link>
           </Button>
@@ -63,7 +57,7 @@ export default function HomePage() {
           </AnimateOnScroll>
         </div>
       </section>
-      
+
       {/* Latest News Teaser */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 text-center">
