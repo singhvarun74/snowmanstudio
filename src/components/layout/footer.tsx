@@ -2,22 +2,8 @@
 "use client";
 
 import Link from 'next/link';
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Twitter, Send, Instagram, Youtube } from 'lucide-react'; 
+import { Twitter, Instagram, Youtube } from 'lucide-react'; 
 import Logo from '@/components/icons/logo';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
-import { subscribeToNewsletter } from '@/lib/actions';
-
-const NewsletterSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }),
-});
-
-type NewsletterFormValues = z.infer<typeof NewsletterSchema>;
 
 const DiscordIconFooter = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
@@ -40,38 +26,6 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const { toast } = useToast();
-  const form = useForm<NewsletterFormValues>({
-    resolver: zodResolver(NewsletterSchema),
-    defaultValues: { email: "" },
-  });
-
-  const onSubmit = async (data: NewsletterFormValues) => {
-    try {
-      const result = await subscribeToNewsletter(data.email); 
-
-      if (result.success) {
-        toast({
-          title: "Success!",
-          description: result.message || "You've subscribed to our newsletter.",
-        });
-        form.reset();
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Oops!",
-          description: result.message || "Something went wrong. Please try again.",
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to subscribe. Please try again later.",
-      });
-    }
-  };
-
   return (
     <footer className="bg-charcoal text-snow-white py-12">
       <div className="container mx-auto px-4">
@@ -112,35 +66,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 4: Newsletter Signup */}
+          {/* Column 4: Newsletter Placeholder */}
           <div>
             <h5 className="font-headline text-lg font-semibold mb-4">Newsletter</h5>
-            <p className="text-sm text-gray-400 mb-3">Stay updated with our latest games and news.</p>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-start space-x-2">
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem className="flex-grow">
-                      <FormControl>
-                        <Input 
-                          type="email" 
-                          placeholder="Enter your email" 
-                          {...field} 
-                          className="bg-gray-700 border-gray-600 text-snow-white placeholder-gray-500 focus:ring-accent focus:border-accent h-10"
-                          aria-label="Newsletter email input"
-                        />
-                      </FormControl>
-                      <FormMessage className="text-xs text-red-400 mt-1" />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" variant="default" size="icon" className="bg-accent hover:bg-opacity-80 text-accent-foreground h-10 w-10 shrink-0 transition-transform duration-150 ease-out hover:scale-105" disabled={form.formState.isSubmitting} aria-label="Subscribe to newsletter">
-                  {form.formState.isSubmitting ? <div className="h-5 w-5 border-2 border-accent-foreground border-t-transparent rounded-full animate-spin"></div> : <Send className="h-5 w-5" />}
-                </Button>
-              </form>
-            </Form>
+            <p className="text-sm text-gray-400">
+              Stay updated with our latest news. Sign up on our Contact page!
+            </p>
           </div>
         </div>
         <div className="border-t border-gray-700 pt-8 text-center text-sm text-gray-500">
