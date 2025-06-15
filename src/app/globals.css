@@ -9,13 +9,13 @@ html {
 @layer base {
   /* Light theme :root block has been removed as dark theme is forced */
   .dark {
-    --background: 0 0% 13%; /* Charcoal */
+    --background: 0 0% 0%; /* Jet Black */
     --foreground: 0 0% 96%; /* Light Gray */
 
-    --card: 0 0% 18%; /* Darker Charcoal */
+    --card: 0 0% 0%; /* Jet Black */
     --card-foreground: 0 0% 96%;
 
-    --popover: 0 0% 18%;
+    --popover: 0 0% 0%; /* Jet Black */
     --popover-foreground: 0 0% 96%;
 
     --primary: 1 79% 65%; /* Lighter Cherry-red for dark mode */
@@ -116,3 +116,4 @@ html {
   border-color: hsl(var(--primary)); 
   border-bottom-width: 2px;
 }
+

@@ -27,7 +27,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-charcoal text-snow-white py-12">
+    <footer className="bg-background text-snow-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Column 1: Logo & Copyright */}
@@ -70,7 +70,7 @@ export default function Footer() {
           <div>
             <h5 className="font-headline text-lg font-semibold mb-4">Newsletter</h5>
             <p className="text-sm text-gray-400">
-              Stay updated with our latest news. Sign up on our Contact page!
+              Stay updated! Sign up on our <Link href="/contact" className="underline hover:text-accent transition-colors">Contact page</Link>.
             </p>
           </div>
         </div>
@@ -81,3 +81,4 @@ export default function Footer() {
     </footer>
   );
 }
+
