@@ -10,28 +10,62 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
+export interface MediaItem {
+  id: string;
+  type: 'image' | 'video' | 'embed'; // Added 'embed' type
+  src: string; // URL for full image or video/content embed
+  thumbnailSrc: string; // URL for thumbnail image
+  alt: string;
+  imageHint?: string; // For AI image search if using placeholders
+}
+
 // Export Game interface for reusability
 export interface Game {
   id: string;
   title: string;
-  imageUrl: string;
-  imageHint: string;
-  itchioEmbedUrl?: string | null;
+  subtitle?: string; 
+  media: MediaItem[]; 
+  // itchioEmbedUrl?: string | null; // Removed this field
   itchioPageUrl: string;
+  buyNowUrl?: string; 
+  logoUrl?: string; 
   description: string;
-  isFeatured: boolean;
-  showInFeaturedGrid: boolean;
+  isFeatured: boolean; 
+  showInFeaturedGrid: boolean; 
   shortDescription?: string;
+  shortDescriptionUnderGallery?: string; 
   heroTagline?: string;
-  // New fields for game detail page
   genres?: string[];
   platforms?: string[];
   releaseDate?: string;
   keyFeatures?: string[];
-  galleryImages?: Array<{ src: string; alt: string; imageHint: string }>;
-  trailerUrl?: string;
   developerNotes?: string;
+  rating?: number; 
+  ratingCount?: number; 
+  customTags?: Array<{ 
+    text: string;
+    icon?: string; 
+    iconColor?: string; 
+  }>;
+  priceDetails?: { 
+    currencySymbol?: string;
+    currentPrice: string;
+    originalPrice?: string;
+    discountPercentage?: string;
+    baseGameTag?: string;
+    saleEndDate?: string;
+  };
+  tabSections?: Array<{ 
+    title: string;
+    contentKey: keyof Game | 'media_plus_description' | string; 
+  }>;
+  // Deprecated fields, kept for potential data migration reference but should be consolidated into `media`
+  imageUrl?: string; 
+  imageHint?: string; 
+  galleryImages?: Array<{ src: string; alt: string; imageHint: string }>; 
+  trailerUrl?: string; 
 }
+
 
 interface FeaturedGamesProps {
   showAllGames?: boolean;
@@ -42,30 +76,33 @@ const TRANSITION_DURATION_MS = 500;
 
 // Export GameCard for reusability
 export function GameCard({ game }: { game: Game }) {
+  const cardMedia = game.media && game.media.length > 0 ? game.media[0] : null;
+  const imageUrl = cardMedia ? (cardMedia.thumbnailSrc || cardMedia.src) : (game.imageUrl || 'https://placehold.co/400x300.png');
+  const imageHint = cardMedia ? cardMedia.imageHint : (game.imageHint || 'gameplay scene');
+
+
   return (
     <Link
       href={`/games/${game.id}`}
-      className="group relative rounded-lg overflow-hidden shadow-xl cursor-pointer aspect-[4/3] h-full flex flex-col"
+      className="group relative rounded-lg overflow-hidden shadow-xl cursor-pointer aspect-[4/3] h-full flex flex-col bg-card"
       aria-label={`View details for ${game.title}`}
     >
       <div className="relative w-full h-full">
         <Image
-          src={game.imageUrl}
+          src={imageUrl}
           alt={game.title}
-          data-ai-hint={game.imageHint}
+          data-ai-hint={imageHint}
           fill
           style={{objectFit:"cover"}}
           className="transition-transform duration-300 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
-      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-300 ease-in-out" />
-      <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-snow-white
-                      opacity-0 group-hover:opacity-100
-                      transform translate-y-5 group-hover:translate-y-0
-                      transition-all duration-300 ease-in-out">
-        <h3 className="font-headline text-2xl font-bold mb-2 text-shadow">{game.title}</h3>
-        <Button variant="outline" size="sm" className="bg-transparent border-snow-white text-snow-white hover:bg-snow-white hover:text-charcoal pointer-events-none">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-black/80 transition-all duration-300 ease-in-out" />
+      <div className="absolute bottom-0 left-0 right-0 p-4 text-snow-white">
+        <h3 className="font-headline text-xl font-bold mb-1 text-shadow">{game.title}</h3>
+        <p className="text-xs text-gray-300 mb-2 line-clamp-2">{game.shortDescription || game.description.substring(0,60)+'...'}</p>
+        <Button variant="outline" size="sm" className="bg-transparent border-snow-white text-snow-white hover:bg-snow-white hover:text-charcoal text-xs pointer-events-none opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-200">
           View Details
         </Button>
       </div>
@@ -95,9 +132,11 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
         setAllGamesData(jsonData);
 
         if (!showAllGames) {
+          // On homepage "More Games" section, filter by showInFeaturedGrid
           const gridGames = jsonData.filter(game => game.showInFeaturedGrid);
           setGamesForDisplay(gridGames);
         } else {
+          // On /games page, show all games (or could add a filter here too if needed)
           setGamesForDisplay(jsonData);
         }
       } catch (err) {
@@ -144,12 +183,14 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
     return <div className="text-center text-destructive bg-destructive/10 p-4 rounded-md">Error loading games: {error}</div>;
   }
 
-  if (showAllGames || (gamesForDisplay.length === 0 && !isLoading)) {
-     if (gamesForDisplay.length === 0) {
-      return <div className="text-center text-lg text-muted-foreground py-8">No games to display at the moment.</div>;
-    }
+  if (gamesForDisplay.length === 0 && !isLoading) {
+     return <div className="text-center text-lg text-muted-foreground py-8">No games to display at the moment.</div>;
+  }
+  
+  // Grid display for /games page or if carousel conditions aren't met for homepage section
+  if (showAllGames || gamesForDisplay.length <= GAMES_PER_CAROUSEL_VIEW && !showAllGames) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {gamesForDisplay.map((game, index) => (
           <AnimateOnScroll
             key={game.id}
@@ -164,6 +205,7 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
     );
   }
   
+  // Carousel display for homepage "More Games" if enough games and not showAllGames
   const canNavigatePrev = carouselCurrentIndex > 0;
   const canNavigateNext = carouselCurrentIndex < gamesForDisplay.length - GAMES_PER_CAROUSEL_VIEW;
   const showNavigationArrows = gamesForDisplay.length > GAMES_PER_CAROUSEL_VIEW;
@@ -206,7 +248,7 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
             {gamesForDisplay.map((game) => (
               <div
                 key={game.id}
-                className="flex-shrink-0 px-4" 
+                className="flex-shrink-0 px-2" 
                 style={{
                   flexBasis: `calc(100% / ${GAMES_PER_CAROUSEL_VIEW})`,
                 }}
@@ -220,4 +262,3 @@ export default function FeaturedGames({ showAllGames = false }: FeaturedGamesPro
     </AnimateOnScroll>
   );
 }
-
