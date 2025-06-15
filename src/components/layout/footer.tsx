@@ -28,8 +28,8 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { icon: <Instagram className="h-6 w-6" />, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: <Youtube className="h-6 w-6" />, href: 'https://youtube.com', label: 'YouTube' },
+  { icon: <Instagram className="h-6 w-6" />, href: 'https://www.instagram.com/thesnowmanstudio/', label: 'Instagram' },
+  { icon: <Youtube className="h-6 w-6" />, href: 'https://www.youtube.com/@thesnowmanstudio', label: 'YouTube' },
   { icon: <Twitter className="h-6 w-6" />, href: 'https://twitter.com', label: 'Twitter' },
 ];
 
@@ -130,7 +130,7 @@ export default function Footer() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" variant="default" size="icon" className="bg-accent hover:bg-opacity-80 text-accent-foreground h-10 w-10 shrink-0" disabled={form.formState.isSubmitting} aria-label="Subscribe to newsletter">
+                <Button type="submit" variant="default" size="icon" className="bg-accent hover:bg-opacity-80 text-accent-foreground h-10 w-10 shrink-0 transition-transform duration-150 ease-out hover:scale-105" disabled={form.formState.isSubmitting} aria-label="Subscribe to newsletter">
                   {form.formState.isSubmitting ? <div className="h-5 w-5 border-2 border-accent-foreground border-t-transparent rounded-full animate-spin"></div> : <Send className="h-5 w-5" />}
                 </Button>
               </form>
@@ -138,7 +138,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-700 pt-8 text-center text-sm text-gray-500">
-          <p>Snowman Studio - Passion Meets Play</p>
+          <p>Snowman Studio - Not all snowmen melt</p>
         </div>
       </div>
     </footer>

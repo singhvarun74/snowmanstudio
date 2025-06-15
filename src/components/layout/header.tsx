@@ -36,7 +36,7 @@ export default function Header() {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out',
-        isSticky ? 'bg-card shadow-lg' : 'bg-gradient-to-b from-[hsl(var(--background)/0.5)] to-transparent backdrop-blur-sm' 
+        'bg-transparent' // Always transparent
       )}
     >
       {/* Header Content */}
