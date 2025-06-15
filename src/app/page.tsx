@@ -13,7 +13,7 @@ export default function HomePage() {
       <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/snomwman-homepage.png" // Changed to local path
+            src="\snowman-homepage.png" // Changed to local path
             alt="Snowman Studio hero image with snowman"
             data-ai-hint="snowman horror"
             fill
