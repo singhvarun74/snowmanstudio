@@ -11,21 +11,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-// import { subscribeToNewsletter } from '@/lib/actions'; // Server Action won't work on GitHub Pages
+import { subscribeToNewsletter } from '@/lib/actions';
 
 const NewsletterSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
 });
 
 type NewsletterFormValues = z.infer<typeof NewsletterSchema>;
-
-// Placeholder for a client-side submission function
-async function handleClientSideNewsletterSubscribe(email: string): Promise<{ success: boolean; message: string }> {
-  console.log("Client-side newsletter subscription (would be sent to a 3rd party service):", email);
-  await new Promise(resolve => setTimeout(resolve, 500));
-  return { success: true, message: "Subscribed (client-side simulation)! Integrate a real mailing list service for GitHub Pages." };
-}
-
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -50,8 +42,7 @@ export default function Footer() {
 
   const onSubmit = async (data: NewsletterFormValues) => {
     try {
-      // const result = await subscribeToNewsletter(data.email);  // Original Server Action
-      const result = await handleClientSideNewsletterSubscribe(data.email); // Placeholder
+      const result = await subscribeToNewsletter(data.email); 
 
       if (result.success) {
         toast({
@@ -119,9 +110,6 @@ export default function Footer() {
           <div>
             <h5 className="font-headline text-lg font-semibold mb-4">Newsletter</h5>
             <p className="text-sm text-gray-400 mb-3">Stay updated with our latest games and news.</p>
-            <div className="mb-2 p-2 bg-yellow-100 border-l-2 border-yellow-500 text-yellow-800 rounded-md text-xs">
-             <p><strong>Note:</strong> Needs a third-party service for GitHub Pages.</p>
-            </div>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-start space-x-2">
                 <FormField
