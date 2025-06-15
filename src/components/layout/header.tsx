@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -19,34 +19,66 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
-  const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  const lastScrollY = useRef(0);
+  const [showHeader, setShowHeader] = useState(true);
+  const headerRef = useRef<HTMLElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call on mount to set initial state
-    return () => window.removeEventListener('scroll', handleScroll);
+    setIsMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDown = currentScrollY > lastScrollY.current;
+      const minScrollDiff = 10; // Minimum scroll difference to trigger a change
+
+      if (currentScrollY <= minScrollDiff) { // At the very top or very close to it
+        setShowHeader(true);
+      } else if (scrollDown && currentScrollY > lastScrollY.current + minScrollDiff) {
+        // Scrolling down significantly
+        setShowHeader(false);
+      } else if (!scrollDown && currentScrollY < lastScrollY.current - minScrollDiff) {
+        // Scrolling up significantly
+        setShowHeader(true);
+      }
+      // If scroll difference is too small, do nothing to prevent jitter
+      
+      lastScrollY.current = Math.max(0, currentScrollY); // Update last scroll position, ensure it's not negative
+    };
+
+    // Initialize header visibility based on current scroll position
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMounted]); // Effect runs once after mount
 
   return (
     <header
+      ref={headerRef}
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out',
-        'bg-transparent' // Always transparent
+        'fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out',
+        // Removed 'bg-background shadow-md' to make it transparent
+        showHeader ? 'translate-y-0' : '-translate-y-full'
       )}
     >
       {/* Header Content */}
       <div
         className={cn(
-          'container mx-auto px-4 flex justify-between items-center transition-all duration-300 ease-in-out',
-          isSticky ? 'py-3' : 'py-8' 
+          'container mx-auto px-4 flex justify-between items-center',
+          'py-2' // Consistent padding for the content within the transparent header
         )}
       >
         <Link href="/" aria-label="Snowman Studio Home" onClick={() => isMobileMenuOpen && setIsMobileMenuOpen(false)}>
-          <Logo className="h-8 md:h-10 w-auto" />
+          <Logo className="h-10 md:h-12 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -69,7 +101,6 @@ export default function Header() {
               </Link>
             ))}
           </nav>
-          {/* ThemeToggle removed */}
         </div>
 
         {/* Mobile Navigation */}
@@ -108,7 +139,6 @@ export default function Header() {
                 ))}
               </nav>
               <div className="flex justify-center pb-8 pt-4 border-t">
-                {/* ThemeToggle removed */}
               </div>
             </SheetContent>
           </Sheet>
