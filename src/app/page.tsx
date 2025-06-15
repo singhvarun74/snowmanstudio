@@ -12,7 +12,7 @@ export default function HomePage() {
       <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://placehold.co/1920x1080.png"
+            src="snowman-home.png"
             alt="Flagship game background"
             data-ai-hint="game landscape"
             fill
