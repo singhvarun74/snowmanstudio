@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  /* Light theme :root block has been removed as dark theme is forced */
+  .dark {
+    --background: 0 0% 13%; /* Charcoal */
+    --foreground: 0 0% 96%; /* Light Gray */
+
+    --card: 0 0% 18%; /* Darker Charcoal */
+    --card-foreground: 0 0% 96%;
+
+    --popover: 0 0% 18%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 1 79% 65%; /* Lighter Cherry-red for dark mode */
+    --primary-foreground: 0 0% 13%; /* Charcoal for contrast on lighter red */
+
+    --secondary: 1 75% 50%; /* Darker, less saturated red for dark mode */
+    --secondary-foreground: 0 0% 96%; /* Light Gray */
+
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 85% 70%; /* Vibrant Light Red for dark mode */
+    --accent-foreground: 0 0% 100%; /* White */
+
+    --destructive: 350 75% 60%; /* Lighter version of the new destructive red for dark mode */
+    --destructive-foreground: 0 0% 13%; /* Charcoal */
+
+    --border: 0 0% 25%;
+    --input: 0 0% 20%;
+    --ring: 1 79% 65%; /* Lighter Cherry-red for focus rings (new primary dark) */
+    
+    /* Sidebar variables for dark theme (assuming these are desired defaults) */
+    --sidebar-background: 0 0% 10%; /* Even darker charcoal for dark sidebar */
+    --sidebar-foreground: 0 0% 85%; /* Lighter gray for text */
+    --sidebar-primary: 1 79% 65%; /* Same as primary */
+    --sidebar-primary-foreground: 0 0% 13%; /* Same as primary-foreground */
+    --sidebar-accent: 0 0% 20%; /* Dark accent */
+    --sidebar-accent-foreground: 0 0% 96%; /* Light gray for text on accent */
+    --sidebar-border: 0 0% 30%;
+    --sidebar-ring: 1 79% 65%;
+
+    /* Custom properties for easy theme tweaking - these define specific colors by name, reflecting dark theme defaults */
+    --color-charcoal: 0 0% 13%;
+    --color-snow-white: 0 0% 100%; /* Still relevant for potential explicit use */
+    --color-cherry-red: 1 79% 65%; /* Dark theme version */
+    --color-light-gray: 0 0% 96%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    @apply font-body;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline;
+  }
+}
+
+/* Floating Label Styles */
+.floating-label-input-container {
+  position: relative;
+}
+
+.floating-label-input-container input:focus ~ label,
+.floating-label-input-container input:not(:placeholder-shown) ~ label,
+.floating-label-input-container textarea:focus ~ label,
+.floating-label-input-container textarea:not(:placeholder-shown) ~ label {
+  top: 0.25rem;
+  font-size: 0.75rem;
+  color: hsl(var(--primary));
+  background-color: hsl(var(--card)); /* Ensure label bg matches input parent on forms */
+  padding: 0 0.25rem;
+  transform: translateY(-50%);
+}
+
+.floating-label-input-container label {
+  position: absolute;
+  left: 0.75rem; 
+  top: 50%;
+  transform: translateY(-50%);
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+  transition: all 0.2s ease-out;
+  background-color: transparent; /* Default transparent, parent will provide actual */
+}
+
+/* Specific for input fields on card background */
+.bg-card .floating-label-input-container input:focus ~ label,
+.bg-card .floating-label-input-container input:not(:placeholder-shown) ~ label,
+.bg-card .floating-label-input-container textarea:focus ~ label,
+.bg-card .floating-label-input-container textarea:not(:placeholder-shown) ~ label {
+  background-color: hsl(var(--card)); /* Explicitly set for card backgrounds */
+}
+
+
+.floating-label-input-container input,
+.floating-label-input-container textarea {
+  border-bottom-width: 1px;
+  transition: border-color 0.2s ease-out;
+}
+
+.floating-label-input-container input:focus,
+.floating-label-input-container textarea:focus {
+  border-color: hsl(var(--primary)); 
+  border-bottom-width: 2px;
+}
