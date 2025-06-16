@@ -104,17 +104,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Glitchy Snowman GIF Placeholder */}
-      <div className="fixed bottom-4 right-4 w-20 h-20 md:w-24 md:h-24 z-50 opacity-80 hover:opacity-100 transition-opacity">
-        <Image
-          src="https://placehold.co/100x100.png/0A0A0A/FF0000?text=GIF" 
-          alt="Glitchy Snowman GIF" 
-          data-ai-hint="snowman glitch"
-          width={100} 
-          height={100} 
-          className="rounded-md"
-        />
-      </div>
     </div>
   );
 }

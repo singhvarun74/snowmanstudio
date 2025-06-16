@@ -1,179 +1,26 @@
 
 "use client";
 
-import Image from 'next/image';
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Mail, MapPin, Phone, Send, Newspaper } from 'lucide-react';
+import { Newspaper } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { FloatingLabelInput, FloatingLabelTextarea } from '@/components/ui/floating-label-input';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast"; // Kept in case other actions on this page might use it in future
 import PageTitle from '@/components/ui/page-title';
 import AnimateOnScroll from '@/components/motion/animate-on-scroll';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { submitContactForm } from '@/lib/actions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const ContactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  subject: z.string().min(5, { message: "Subject must be at least 5 characters." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
-});
+// Copied from homepage, consider moving to a shared icons file if used in more places
+const DiscordIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+    <path d="M19.625 3.008c-.897-.403-1.85-.72-2.828-.948-.075-.023-.153-.023-.225.002-.504.138-.965.345-1.383.613-.004.004-.006.006-.01.01l-.018.016c-1.302.986-2.43 2.23-3.34 3.694-1.308.204-2.636.204-3.944 0-.91-1.464-2.038-2.708-3.34-3.694l-.018-.016-.01-.01c-.418-.268-.88-.475-1.383-.613-.075-.023-.153-.023-.225.002-.978.228-1.93.545-2.828.948-.092.043-.165.11-.21.2-.048.09-.055.198-.02.292.54 1.548 1.17 3.482 1.682 5.772-.004.023-.004.047.002.068 0 .012.004.023.004.035-.15.652-.264 1.247-.332 1.78-.015.112.01.22.07.308.113.168.31.26.502.235.96-.125 1.845-.38 2.62-.73.014-.006.027-.012.04-.02-.075-.067-.14-.142-.2-.223-.35-.41-.64-.87-.85-1.38-.002-.004-.002-.006-.002-.01 0-.04.01-.07.03-.1.394-.63.93-1.21 1.57-1.72.93-.74 1.99-1.29 3.14-1.6.17-.04.34-.04.51 0 .01.002.02.004.03.006.09.02.18.04.27.06.11.03.22.05.33.08.12.03.24.06.36.09.14.04.28.07.42.11.09.03.18.05.27.08.02.004.03.01.05.01.06.02.12.03.18.05.01.002.02.004.02.006.11.03.22.06.34.09.06.01.11.03.17.04.09.02.18.04.26.06.1.03.19.05.29.07.02.004.03.01.05.01.06.02.11.03.17.05.06.01.12.03.18.04.05.01.09.02.14.03.06.02.12.03.18.04.05.01.09.02.14.03.02.003.04.006.05.008l.05.02c1.15.31 2.21.86 3.14 1.6.64.51 1.176 1.09 1.57 1.72.02.03.03.06.03.1 0 .004 0 .006-.002.01-.21.51-.5.97-.85 1.38-.06.08-.125.156-.2.223.013.008.026.014.04.02.775.35 1.66.605 2.62.73.192.024.39-.067.502-.235.06-.088.085-.196.07-.308-.067-.533-.182-1.128-.332-1.78 0-.012.004-.023.004-.035a.2.2 0 0 0 .002-.068c.512-2.29 1.142-4.224 1.682-5.772.036-.094.028-.202-.02-.292-.045-.09-.118-.157-.21-.2zm-8.43 8.566c-.872 0-1.58-.726-1.58-1.628s.708-1.628 1.58-1.628c.872 0 1.58.726 1.58 1.628s-.708 1.628-1.58 1.628zm-5.336 0c-.872 0-1.58-.726-1.58-1.628s.708-1.628 1.58-1.628c.872 0 1.58.726 1.58 1.628s-.708 1.628-1.58 1.628z"/>
+  </svg>
+);
 
-type ContactFormValues = z.infer<typeof ContactFormSchema>;
 
 function ContactFormContent() {
-  const { toast } = useToast();
-  const searchParams = useSearchParams();
-  
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(ContactFormSchema),
-    defaultValues: { 
-      name: "", 
-      email: "", 
-      subject: searchParams ? (searchParams.get('subject') || "") : "", 
-      message: "" 
-    },
-  });
-
-  useEffect(() => {
-    if (searchParams) {
-      const subjectParam = searchParams.get('subject');
-      if (subjectParam) {
-        form.setValue('subject', subjectParam);
-      }
-    }
-  }, [searchParams, form]);
-
-  const onSubmit = async (data: ContactFormValues) => {
-    try {
-      const result = await submitContactForm(data);
-      if (result.success) {
-        toast({
-          title: "Message Sent!",
-          description: result.message,
-          duration: 3000,
-        });
-        form.reset({ subject: searchParams ? (searchParams.get('subject') || "") : "", name: "", email: "", message: "" });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Submission Failed",
-          description: result.message || "Please check your input and try again.",
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An unexpected error occurred. Please try again later.",
-      });
-    }
-  };
-
-  return (
-    <div className="grid md:grid-cols-2 gap-8 md:gap-12 bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-xl">
-      <AnimateOnScroll animationClass="animate-fade-in-from-bottom" className="flex flex-col">
-        <div className="relative h-64 md:h-80 rounded-lg overflow-hidden mb-8 shadow-md">
-          <Image
-            src="https://placehold.co/600x450.png"
-            alt="Snowman Studio Office exterior"
-            data-ai-hint="modern office building"
-            fill
-            style={{objectFit:"cover"}}
-          />
-        </div>
-        <h3 className="font-headline text-2xl font-semibold mt-4 mb-4 text-primary">Contact Information</h3>
-        <ul className="space-y-4 text-foreground">
-          <li className="flex items-start">
-            <MapPin className="h-5 w-5 mr-3 mt-1 text-primary shrink-0" />
-            <span>123 Frosty Lane, Iceberg City, GL 45678</span>
-          </li>
-          <li className="flex items-center">
-            <Mail className="h-5 w-5 mr-3 text-primary shrink-0" />
-            <a href="mailto:hello@snowmanstudio.com" className="hover:text-primary transition-colors duration-150">
-              hello@snowmanstudio.com
-            </a>
-          </li>
-          <li className="flex items-center">
-            <Phone className="h-5 w-5 mr-3 text-primary shrink-0" />
-            <a href="tel:+1234567890" className="hover:text-primary transition-colors duration-150">
-              +1 (234) 567-890
-            </a>
-          </li>
-        </ul>
-      </AnimateOnScroll>
-
-      <AnimateOnScroll animationClass="animate-fade-in-from-bottom" delay="delay-200ms">
-        <h3 className="font-headline text-2xl font-semibold mb-6 text-foreground">Send Us a Message</h3>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FloatingLabelInput label="Full Name" type="text" {...field} />
-                  <FormMessage className="text-xs" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FloatingLabelInput label="Email Address" type="email" {...field} />
-                  <FormMessage className="text-xs" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="subject"
-              render={({ field }) => (
-                <FormItem>
-                  <FloatingLabelInput label="Subject" type="text" {...field} />
-                  <FormMessage className="text-xs" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FloatingLabelTextarea label="Your Message" {...field} rows={5} />
-                  <FormMessage className="text-xs" />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-opacity-80 text-lg py-3 mt-4 group transition-all duration-150 ease-out hover:scale-105 shadow-md" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting ? (
-                <div className="flex items-center justify-center">
-                  <div className="h-5 w-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
-                  Sending...
-                </div>
-              ) : (
-                <>
-                  Send Message
-                  <Send className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-                </>
-              )}
-            </Button>
-          </form>
-        </Form>
-      </AnimateOnScroll>
-    </div>
-  );
-}
-
-function NewsletterSection() {
+  // Brevo form HTML, moved from NewsletterSection
   const brevoFormHtml = `
     <!-- START - We recommend to place the below code where you want the form in your website html  -->
     <div class="sib-form" style="text-align: center; background-color: transparent;">
@@ -280,20 +127,41 @@ function NewsletterSection() {
     </div>
     <!-- END - We recommend to place the above code where you want the form in your website html  -->
   `;
+
+
   return (
-    <AnimateOnScroll animationClass="animate-fade-in-from-bottom" delay="delay-300ms" className="mt-12 md:mt-16">
-      <Card className="bg-card shadow-xl">
-        <CardHeader>
-          <CardTitle className="text-2xl font-semibold text-center flex items-center justify-center">
-            <Newspaper className="mr-3 h-7 w-7 text-primary" />
-            Stay Updated With Our Newsletter
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="max-w-lg mx-auto" dangerouslySetInnerHTML={{ __html: brevoFormHtml }} />
-        </CardContent>
-      </Card>
-    </AnimateOnScroll>
+    <div className="grid md:grid-cols-2 gap-8 md:gap-12 bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-xl">
+      {/* --- LEFT COLUMN: DISCORD ONLY --- */}
+      <AnimateOnScroll animationClass="animate-fade-in-from-bottom" className="flex flex-col space-y-8 justify-center">
+        <div className="pt-6">
+          <h3 className="font-headline text-2xl font-semibold mb-4 text-primary text-center md:text-left">Connect on Discord</h3>
+          <p className="text-muted-foreground mb-6 text-sm text-center md:text-left">
+            Join our community server to chat with the devs, get sneak peeks, and connect with other players.
+          </p>
+          <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white hover:scale-105 transition-transform duration-150 ease-out shadow-lg hover:shadow-xl w-full py-3">
+            <Link href="https://discord.gg/eUCKmk6GNt" target="_blank" rel="noopener noreferrer">
+              <DiscordIcon />
+              Join our Discord Server
+            </Link>
+          </Button>
+        </div>
+      </AnimateOnScroll>
+
+      {/* --- RIGHT COLUMN: NEWSLETTER --- */}
+      <AnimateOnScroll animationClass="animate-fade-in-from-bottom" delay="delay-200ms">
+        <Card className="bg-card shadow-xl">
+          <CardHeader>
+            <CardTitle className="text-2xl font-semibold text-center flex items-center justify-center">
+              <Newspaper className="mr-3 h-7 w-7 text-primary" />
+              Stay Updated With Our Newsletter
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="max-w-lg mx-auto" dangerouslySetInnerHTML={{ __html: brevoFormHtml }} />
+          </CardContent>
+        </Card>
+      </AnimateOnScroll>
+    </div>
   );
 }
 
@@ -301,34 +169,24 @@ function NewsletterSection() {
 function ContactPageFallback() {
   return (
      <div className="grid md:grid-cols-2 gap-8 md:gap-12 bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-xl">
-      <AnimateOnScroll animationClass="animate-fade-in-from-bottom" className="flex flex-col">
-        <Skeleton className="relative h-64 md:h-80 rounded-lg mb-8 shadow-md" />
-        <Skeleton className="h-8 w-1/2 mt-4 mb-4" />
-        <ul className="space-y-4 text-foreground">
-          <li className="flex items-start">
-            <MapPin className="h-5 w-5 mr-3 mt-1 text-primary shrink-0" />
-            <Skeleton className="h-5 w-3/4" />
-          </li>
-          <li className="flex items-center">
-            <Mail className="h-5 w-5 mr-3 text-primary shrink-0" />
-            <Skeleton className="h-5 w-1/2" />
-          </li>
-          <li className="flex items-center">
-            <Phone className="h-5 w-5 mr-3 text-primary shrink-0" />
-            <Skeleton className="h-5 w-1/2" />
-          </li>
-        </ul>
-      </AnimateOnScroll>
-      <AnimateOnScroll animationClass="animate-fade-in-from-bottom" delay="delay-200ms">
-        <Skeleton className="h-8 w-3/4 mb-6" />
-        <div className="space-y-4">
-          <Skeleton className="h-12 w-full" />
-          <Skeleton className="h-12 w-full" />
-          <Skeleton className="h-12 w-full" />
-          <Skeleton className="h-24 w-full" />
-          <Skeleton className="h-12 w-full mt-4" />
+      {/* Left Column Skeleton - Discord Only */}
+      <div className="flex flex-col space-y-8 justify-center">
+        <div className="pt-6">
+          <Skeleton className="h-8 w-3/4 mb-4 mx-auto md:mx-0" /> {/* "Connect on Discord" title */}
+          <Skeleton className="h-4 w-full mb-2" /> {/* Description line 1 */}
+          <Skeleton className="h-4 w-5/6 mb-6" /> {/* Description line 2 */}
+          <Skeleton className="h-12 w-full py-3" /> {/* Discord Button */}
         </div>
-      </AnimateOnScroll>
+      </div>
+      {/* Right Column Skeleton (Newsletter) */}
+       <div>
+          <Skeleton className="h-10 w-3/4 mx-auto mb-4" /> {/* Title */}
+          <Skeleton className="h-8 w-full mb-2" /> {/* Subtitle */}
+          <Skeleton className="h-12 w-full mb-3" /> {/* Email Input */}
+          <Skeleton className="h-12 w-full mb-3" /> {/* Name Input */}
+          <Skeleton className="h-8 w-full mb-3" /> {/* Checkbox line */}
+          <Skeleton className="h-12 w-1/2 mx-auto" /> {/* Button */}
+        </div>
     </div>
   )
 }
@@ -341,7 +199,8 @@ export default function ContactPage() {
       <Suspense fallback={<ContactPageFallback />}>
         <ContactFormContent />
       </Suspense>
-      <NewsletterSection />
     </div>
   );
 }
+
+    
