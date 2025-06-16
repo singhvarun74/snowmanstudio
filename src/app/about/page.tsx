@@ -26,7 +26,7 @@ export default function AboutPage() {
           <AnimateOnScroll animationClass="animate-fade-in-from-bottom" className="relative h-[350px] md:h-[500px] order-last md:order-first">
             <div className="relative w-full h-full">
               <div className="absolute top-0 left-0 w-3/4 h-3/4 rounded-lg overflow-hidden shadow-2xl transform -rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out">
-                <Image src="cutie.jpg" data-ai-hint="team working office" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
+                <Image src="public\about image\cutie.jpg" data-ai-hint="team working office" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
               </div>
               <div className="absolute bottom-0 right-0 w-2/3 h-2/3 rounded-lg overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out border-4 border-snow-white">
                 <Image src="party.jpg" data-ai-hint="game development screen" alt="Close-up of game development software" fill style={{objectFit:"cover"}} />
