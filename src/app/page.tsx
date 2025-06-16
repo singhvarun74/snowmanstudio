@@ -14,19 +14,6 @@ const DiscordIcon = () => (
 );
 
 export default function HomePage() {
-  const whoWeAreText = `We're Snowman Studio - where horror gets a PhD in messing with your head.
-
-Our games feature:
-- Stories so twisted they make M. Night Shyamalan say "Damn, that's wild"
-- Gameplay mechanics that break the 4th wall (and possibly your sanity)
-- Horror that lingers like your ex's Netflix password
-
-We're the mad scientists of Indian gaming - equal parts creative genius and sleep-deprived chaos. Our secret sauce? Taking familiar fears and flipping them into something you've never experienced before.
-
-Warning: Side effects may include checking under your bed, distrust of snowmen, and an irrational fear of your own gaming PC.
-
-Join the madness`;
-
   return (
     <>
       {/* Hero Games Carousel Section */}
@@ -45,8 +32,8 @@ Join the madness`;
         <div className="container mx-auto px-4 text-center">
           <PageTitle title="Who We Are" className="text-primary" />
           <AnimateOnScroll>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed whitespace-pre-line">
-              {whoWeAreText}
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
+              Snowman Studio is a passionate team of developers, artists, and storytellers dedicated to creating unforgettable gaming experiences. We believe in the power of play to inspire, connect, and entertain.
             </p>
             <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-150 ease-out hover:scale-105 shadow-md">
               <Link href="/about">Learn More About Us</Link>
