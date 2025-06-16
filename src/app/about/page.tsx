@@ -11,10 +11,9 @@ interface TeamMember {
 }
 
 const teamMembers: TeamMember[] = [
-  { id: '1', name: 'Alex Snow', role: 'Lead Developer', imageUrl: 'https://placehold.co/200x200.png', imageHint: 'portrait developer' },
-  { id: '2', name: 'Jamie Frost', role: 'Art Director', imageUrl: 'https://placehold.co/200x200.png', imageHint: 'portrait artist' },
-  { id: '3', name: 'Casey Blizzard', role: 'Game Designer', imageUrl: 'https://placehold.co/200x200.png', imageHint: 'portrait designer' },
-  { id: '4', name: 'Morgan Hail', role: 'Community Manager', imageUrl: 'https://placehold.co/200x200.png', imageHint: 'portrait manager' },
+  { id: '1', name: 'Sensuki', role: 'Founder/Game Director', imageUrl: 'src\app\about\sensuki.jpg', imageHint: 'portrait developer' },
+  { id: '2', name: 'Vinayak Gupta', role: 'Co-founder/Community Manager', imageUrl: 'src\app\about\vinayak.jpg', imageHint: 'portrait artist' },
+  { id: '3', name: 'Varun Singh', role: 'Art Director', imageUrl: 'src\app\about\varun.jpg', imageHint: 'portrait artist' },
 ];
 
 export default function AboutPage() {
@@ -27,31 +26,43 @@ export default function AboutPage() {
           <AnimateOnScroll animationClass="animate-fade-in-from-bottom" className="relative h-[350px] md:h-[500px] order-last md:order-first">
             <div className="relative w-full h-full">
               <div className="absolute top-0 left-0 w-3/4 h-3/4 rounded-lg overflow-hidden shadow-2xl transform -rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out">
-                <Image src="https://placehold.co/450x350.png" data-ai-hint="team working office" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
+                <Image src="src\app\about\cutie.jpg" data-ai-hint="team working office" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
               </div>
               <div className="absolute bottom-0 right-0 w-2/3 h-2/3 rounded-lg overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out border-4 border-snow-white">
-                <Image src="https://placehold.co/350x300.png" data-ai-hint="game development screen" alt="Close-up of game development software" fill style={{objectFit:"cover"}} />
+                <Image src="src\app\about\party.jpg" data-ai-hint="game development screen" alt="Close-up of game development software" fill style={{objectFit:"cover"}} />
               </div>
             </div>
           </AnimateOnScroll>
           <AnimateOnScroll animationClass="animate-fade-in-from-bottom" delay="delay-200ms">
             <h2 className="font-headline text-3xl md:text-4xl font-bold mb-6 text-foreground">Our Story</h2>
             <p className="text-lg text-foreground mb-4 leading-relaxed">
-              Founded on the principle of "Passion Meets Play," Snowman Studio is an independent game development studio dedicated to crafting immersive and innovative gaming experiences. We believe that games are a powerful medium for storytelling, creativity, and connection.
+              We’re a small team of Indian students with a monstrous dream: To become India’s most unhinged game studio—crafting psychological nightmares that stick to your spine long after you’ve quit playing.
             </p>
+            
+            <h3 className="font-headline text-xl font-semibold mt-6 mb-2 text-primary">🔪 Our Madness We fuse:</h3>
+            <ul className="list-disc list-inside space-y-1 text-lg text-foreground mb-4 leading-relaxed">
+              <li>Brain-melting horror stories (think Silent Hill meets Indian folklore).</li>
+              <li>Gameplay that punishes—then rewards (sweaty palms guaranteed).</li>
+              <li>Experimental mechanics (ever fought a monster through a VHS tape glitch?).</li>
+            </ul>
+
             <p className="text-lg text-foreground mb-4 leading-relaxed">
-              Our team is a diverse collective of talented developers, artists, designers, and writers who share a common goal: to push the boundaries of interactive entertainment and create worlds that players will love to explore.
+              We’re few sleep-deprived students by day, cult leaders of horror by night. (Yes, we survive on chai and pixel art.)
             </p>
-            <p className="text-lg text-foreground leading-relaxed">
-              From thrilling adventures to thought-provoking narratives, we strive to deliver high-quality games that resonate with players long after they've put down the controller.
-            </p>
+
+            <h3 className="font-headline text-xl font-semibold mt-6 mb-2 text-primary">📜 Our Promise</h3>
+            <ul className="list-disc list-inside space-y-1 text-lg text-foreground leading-relaxed">
+              <li>No cheap jumpscares—only slow-burn dread.</li>
+              <li>Games so immersive, you’ll check under your bed after.</li>
+              <li>Democratizing horror: Sharing free assets, dev logs, and the screams we collect.</li>
+            </ul>
           </AnimateOnScroll>
         </div>
       </section>
 
       <section className="py-12 md:py-16 bg-background rounded-lg">
         <PageTitle title="Meet the Team" className="text-center" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
             <AnimateOnScroll
               key={member.id}
