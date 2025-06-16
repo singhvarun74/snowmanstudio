@@ -11,9 +11,9 @@ interface TeamMember {
 }
 
 const teamMembers: TeamMember[] = [
-  { id: '1', name: 'Sensuki', role: 'Founder/Game Director', imageUrl: 'src\app\about\sensuki.jpg', imageHint: 'portrait developer' },
-  { id: '2', name: 'Vinayak Gupta', role: 'Co-founder/Community Manager', imageUrl: 'src\app\about\vinayak.jpg', imageHint: 'portrait artist' },
-  { id: '3', name: 'Varun Singh', role: 'Art Director', imageUrl: 'src\app\about\varun.jpg', imageHint: 'portrait artist' },
+  { id: '1', name: 'Sensuki', role: 'Founder/Game Director', imageUrl: 'sensuki.jpg', imageHint: 'portrait developer' },
+  { id: '2', name: 'Vinayak Gupta', role: 'Co-founder/Community Manager', imageUrl: 'vinayak.jpg', imageHint: 'portrait artist' },
+  { id: '3', name: 'Varun Singh', role: 'Art Director', imageUrl: 'varun.jpg', imageHint: 'portrait artist' },
 ];
 
 export default function AboutPage() {
@@ -26,10 +26,10 @@ export default function AboutPage() {
           <AnimateOnScroll animationClass="animate-fade-in-from-bottom" className="relative h-[350px] md:h-[500px] order-last md:order-first">
             <div className="relative w-full h-full">
               <div className="absolute top-0 left-0 w-3/4 h-3/4 rounded-lg overflow-hidden shadow-2xl transform -rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out">
-                <Image src="src\app\about\cutie.jpg" data-ai-hint="team working office" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
+                <Image src="cutie.jpg" data-ai-hint="team working office" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
               </div>
               <div className="absolute bottom-0 right-0 w-2/3 h-2/3 rounded-lg overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out border-4 border-snow-white">
-                <Image src="src\app\about\party.jpg" data-ai-hint="game development screen" alt="Close-up of game development software" fill style={{objectFit:"cover"}} />
+                <Image src="party.jpg" data-ai-hint="game development screen" alt="Close-up of game development software" fill style={{objectFit:"cover"}} />
               </div>
             </div>
           </AnimateOnScroll>
