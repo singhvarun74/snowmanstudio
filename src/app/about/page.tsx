@@ -15,9 +15,9 @@ interface TeamMember {
 }
 
 const teamMembers: TeamMember[] = [
-  { id: '1', name: 'Sensuki', role: 'Founder/Lead Developer', imageUrl: '/about image/sensuki.jpg', imageHint: 'portrait developer', instagramUrl: 'https://www.instagram.com/thesnowmanstudio/' },
-  { id: '2', name: 'Varun', role: 'Art Director', imageUrl: '/about image/varun.jpg', imageHint: 'portrait artist', instagramUrl: 'https://www.instagram.com/thesnowmanstudio/' },
-  { id: '3', name: 'Vinayak', role: 'Co-founder/3d Artst', imageUrl: '/about image/vinayak.jpg', imageHint: 'portrait developer', instagramUrl: 'https://www.instagram.com/thesnowmanstudio/' },
+  { id: '1', name: 'Sensuki', role: 'Lead Developer', imageUrl: '/about image/Sensuki.png', imageHint: 'portrait developer', instagramUrl: 'https://www.instagram.com/thesnowmanstudio/' },
+  { id: '2', name: 'Varun', role: 'Art Director', imageUrl: '/about image/Varun.png', imageHint: 'portrait artist', instagramUrl: 'https://www.instagram.com/thesnowmanstudio/' },
+  { id: '3', name: 'Vinayak', role: 'Developer', imageUrl: '/about image/Vinayak.png', imageHint: 'portrait developer', instagramUrl: 'https://www.instagram.com/thesnowmanstudio/' },
 ];
 
 export default function AboutPage() {
@@ -30,10 +30,10 @@ export default function AboutPage() {
           <AnimateOnScroll animationClass="animate-fade-in-from-bottom" className="relative h-[350px] md:h-[500px] order-last md:order-first">
             <div className="relative w-full h-full">
               <div className="absolute top-0 left-0 w-3/4 h-3/4 rounded-lg overflow-hidden shadow-2xl transform -rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out">
-                <Image src="/about image/party.jpg" data-ai-hint="abstract colorful" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
+                <Image src="/about image/cutie.png" data-ai-hint="abstract colorful" alt="Team collaborating in the office" fill style={{objectFit:"cover"}} />
               </div>
               <div className="absolute bottom-0 right-0 w-2/3 h-2/3 rounded-lg overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 ease-in-out border-4 border-snow-white">
-                <Image src="/about image/cutie.jpg" data-ai-hint="party celebration" alt="Close-up of game development software" fill style={{objectFit:"cover"}} />
+                <Image src="/about image/party.png" data-ai-hint="party celebration" alt="Close-up of game development software" fill style={{objectFit:"cover"}} />
               </div>
             </div>
           </AnimateOnScroll>
@@ -103,7 +103,6 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-
     </div>
   );
 }
